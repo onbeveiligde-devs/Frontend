@@ -2,10 +2,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { ViewStreamComponent } from './components/view-stream/view-stream.component';
+import { ViewSingleStreamComponent } from './components/view-single-stream/view-single-stream.component';
+import { RecordStreamComponent } from './components/record-stream/record-stream.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ViewStreamComponent,
+    ViewSingleStreamComponent,
+    RecordStreamComponent
   ],
   imports: [
     BrowserModule
@@ -14,3 +20,4 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+ 
