@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 
 @Component({
@@ -10,11 +12,11 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 })
 export class UserListComponent implements OnInit {
 
-   users :  User[];
+  users: User[];
 
   constructor() {
-    
-   }
+
+  }
 
   ngOnInit() {
 
@@ -24,18 +26,18 @@ export class UserListComponent implements OnInit {
     let user3 = new User("id3", "user 3", false, 300, "privkey3");
     let user4 = new User("id4", "user 4", true, 400, "privkey4");
 
-   this.users.push(user1, user2, user3, user4)
+    this.users.push(user1, user2, user3, user4)
 
   }
 
-    drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
     }
   }
 

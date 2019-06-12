@@ -1,30 +1,53 @@
+
+
+
 <div class="form-group col-2" id="discoveryUsers">
+  
+  
+  
   <h4>Users</h4>
-  <ul class="nav nav-tabs">
-
     <!--TODO: IMPLEMENT Functionality of working tabs-->
-
-    <li class="nav-item">
-      <a class="nav-link active">Online</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link">All users</a>
-    </li>
-  </ul>
-
-
-  <ul class="list-group list-group-flush">
-
-    <!--TODO: IMPLEMENT SEARCH-->
-    <div cdkDropList id=discoveryUsersList [cdkDropListData]="users" [cdkDropListConnectedTo]="['streamPos1List', 'streamPos2List']"
-      class="example-list" (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let user of users" cdkDrag>
-        <li class="list-group-item">
-          {{user.username}}
-          <span *ngIf="user.online" class=online></span>
-          <span *ngIf="!user.online" class=offline></span>
-        </li>
-      </div>
+<mat-tab-group dynamicHeight>
+  <mat-tab label="Online">
+    <div class="mat-elevation-z2">
+      <ul class="list-group list-group-flush">
+        <!--TODO: IMPLEMENT SEARCH-->
+        <div cdkDropList id=discoveryUsersList [cdkDropListData]="users"
+          [cdkDropListConnectedTo]="['streamPos1List', 'streamPos2List']" class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let user of users" cdkDrag>
+            <li *ngIf="user.online" class="list-group-item">
+              {{user.username}}
+              <span *ngIf="user.online" class=online></span>
+              <span *ngIf="!user.online" class=offline></span>
+            </li>
+          </div>
+        </div>
+      </ul>
     </div>
-  </ul>
+  </mat-tab>
+  <mat-tab label="All">
+    <div class="mat-elevation-z2">
+        <ul class="list-group list-group-flush">
+            <!--TODO: IMPLEMENT SEARCH-->
+            <div cdkDropList id=discoveryUsersList [cdkDropListData]="users"
+              [cdkDropListConnectedTo]="['streamPos1List', 'streamPos2List']" class="example-list"
+              (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let user of users" cdkDrag>
+                <li class="list-group-item">
+                  {{user.username}}
+                  <span *ngIf="user.online" class=online></span>
+                  <span *ngIf="!user.online" class=offline></span>
+                </li>
+              </div>
+            </div>
+          </ul>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+ 
+
+
+
 </div>

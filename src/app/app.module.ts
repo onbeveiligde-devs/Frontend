@@ -10,6 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { MatTabsModule } from '@angular/material';
+
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
-    DragDropModule
+    DragDropModule,
+    MatTabsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
