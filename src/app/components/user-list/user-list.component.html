@@ -1,4 +1,3 @@
-
 <div class="form-group col-2" id="discoveryUsers">
   <h3>All users</h3>
   <ul class="nav nav-tabs">
@@ -17,12 +16,15 @@
   <ul class="list-group list-group-flush">
 
     <!--TODO: IMPLEMENT SEARCH-->
-
-    <li class="list-group-item">User 1  <span class="online"></span></li>
-    <li class="list-group-item">User 2 <span class="offline"></span></li>
-    <li class="list-group-item">User 3 <span class="offline"></span></li>
-    <li class="list-group-item">User 4 <span class="online"></span></li>
-    <li class="list-group-item">User 5 <span class="offline"></span></li>
-    
+    <div cdkDropList #discoveryUsersList="cdkDropList" [cdkDropListData]="users" [cdkDropListConnectedTo]="['streamPlace1List', 'streamPlace2List']"
+      class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let user of users" cdkDrag>
+        <li class="list-group-item">
+          {{user.username}}
+          <span *ngIf="user.online" class=online></span>
+          <span *ngIf="!user.online" class=offline></span>
+        </li>
+      </div>
+    </div>
   </ul>
 </div>
