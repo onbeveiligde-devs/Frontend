@@ -1,5 +1,5 @@
-import { Chat } from "./chat";
-import { User } from "./user";
+import { Chat } from './Chat';
+import { User } from './User';
 
 export class Stream {
 
