@@ -1,7 +1,8 @@
 #discoveryUsers{
-    float: right;
-    margin-right: 5%;
-    margin-top: 1%;
+  float: right;
+  margin-right: 5%;
+  margin-top: 0%;
+  position: relative;
 }
 
 .online{

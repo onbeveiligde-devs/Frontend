@@ -1,5 +1,5 @@
 <div class="form-group col-2" id="discoveryUsers">
-  <h3>All users</h3>
+  <h4>Users</h4>
   <ul class="nav nav-tabs">
 
     <!--TODO: IMPLEMENT Functionality of working tabs-->
@@ -16,7 +16,7 @@
   <ul class="list-group list-group-flush">
 
     <!--TODO: IMPLEMENT SEARCH-->
-    <div cdkDropList #discoveryUsersList="cdkDropList" [cdkDropListData]="users" [cdkDropListConnectedTo]="['streamPlace1List', 'streamPlace2List']"
+    <div cdkDropList id=discoveryUsersList [cdkDropListData]="users" [cdkDropListConnectedTo]="['streamPos1List', 'streamPos2List']"
       class="example-list" (cdkDropListDropped)="drop($event)">
       <div class="example-box" *ngFor="let user of users" cdkDrag>
         <li class="list-group-item">

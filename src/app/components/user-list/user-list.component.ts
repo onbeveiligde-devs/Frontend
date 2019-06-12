@@ -12,7 +12,9 @@ export class UserListComponent implements OnInit {
 
    users :  User[];
 
-  constructor() { }
+  constructor() {
+    
+   }
 
   ngOnInit() {
 
@@ -25,6 +27,7 @@ export class UserListComponent implements OnInit {
    this.users.push(user1, user2, user3, user4)
 
   }
+
     drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);

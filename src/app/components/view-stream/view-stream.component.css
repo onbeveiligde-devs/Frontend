@@ -1,13 +1,15 @@
 .example-list {
-    width: 1000px;
-    max-width: 100%;
-    border: solid 1px #ccc;
-    min-height: 60px;
-    display: flex;
-    flex-direction: row;
-    background: white;
-    border-radius: 4px;
-    overflow: hidden;
+  width: 1000px;
+  max-width: 100%;
+  border: solid 1px #ccc;
+  min-height: 300px;
+  display: flex;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  position: relative;
   }
   
   .example-box {

@@ -9,18 +9,17 @@ import { User } from 'src/app/models/User';
   styleUrls: ['./view-stream.component.css']
 })
 export class ViewStreamComponent implements OnInit {
-  streamPlace1 : User[];
-  streamPlace2 : User[];
+  streamPos1 : User[];
+  streamPos2 : User[];
 
 
   constructor() { }
 
   ngOnInit() {
-    this.streamPlace1 = [    
-    new User("id4", "user 4", true, 400, "privkey4")
-  ];
-    this.streamPlace2 = [];
+    this.streamPos1 = [];
+    this.streamPos2 = [];
   }
+
 
 
   drop(event: CdkDragDrop<string[]>) {
