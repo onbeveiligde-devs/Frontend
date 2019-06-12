@@ -7,6 +7,7 @@ import { ViewSingleStreamComponent } from './components/view-single-stream/view-
 import { RecordStreamComponent } from './components/record-stream/record-stream.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DiscoveryComponent } from './components/discovery/discovery.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { AppRoutingModule } from './app-routing.module';
     ViewStreamComponent,
     ViewSingleStreamComponent,
     RecordStreamComponent,
-    UserListComponent
+    UserListComponent,
+    DiscoveryComponent
   ],
   imports: [
     BrowserModule,
