@@ -9,10 +9,10 @@ import { User } from 'src/app/models/User';
   styleUrls: ['./view-stream.component.css']
 })
 export class ViewStreamComponent implements OnInit {
-  streamPos1: User[];
-  streamPos2: User[];
-  streamPos3: User[];
-  streamPos4: User[];
+  streamPos1: any[];
+  streamPos2: any[];
+  streamPos3: any[];
+  streamPos4: any[];
 
 
   constructor() { }
@@ -25,7 +25,7 @@ export class ViewStreamComponent implements OnInit {
 
   }
 
-  drop(event: CdkDragDrop<User[]>) {
+  drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }

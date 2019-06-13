@@ -26,6 +26,8 @@
     font-size: 14px;
     flex-grow: 1;
     flex-basis: 0;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
   }
   
   .cdk-drag-preview {
@@ -53,6 +55,18 @@
   }
   #lower-stream-pos{
     margin-top: -60px;
+  }
 
+  .div.example-box.cdk-drag.ng-star-inserted{
+    width: -webkit-fill-available;
+    height:  -webkit-fill-available;
+    touch-action: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
   

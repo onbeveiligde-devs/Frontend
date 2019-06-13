@@ -28,7 +28,7 @@ export class UserListComponent implements OnInit {
     
   }
 
-  drop(event: CdkDragDrop<User[]>) {
+  drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
