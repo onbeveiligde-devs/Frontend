@@ -1,7 +1,7 @@
 
 
 
-<div class="form-group col-2" id="discoveryUsers">
+<div class="form-group" id="discoveryUsers">
   
   
   
@@ -13,7 +13,7 @@
       <ul class="list-group list-group-flush">
         <!--TODO: IMPLEMENT SEARCH-->
         <div cdkDropList id=discoveryUsersList [cdkDropListData]="users"
-          [cdkDropListConnectedTo]="['streamPos1List', 'streamPos2List']" class="example-list"
+          [cdkDropListConnectedTo]="['streamPos1List', 'streamPos2List' ,'streamPos3List', 'streamPos4List']" class="example-list"
           (cdkDropListDropped)="drop($event)">
           <div class="example-box" *ngFor="let user of users" cdkDrag>
             <li *ngIf="user.online" class="list-group-item">
@@ -31,7 +31,7 @@
         <ul class="list-group list-group-flush">
             <!--TODO: IMPLEMENT SEARCH-->
             <div cdkDropList id=discoveryUsersList [cdkDropListData]="users"
-              [cdkDropListConnectedTo]="['streamPos1List', 'streamPos2List']" class="example-list"
+              [cdkDropListConnectedTo]="['streamPos1List', 'streamPos2List' ,'streamPos3List', 'streamPos4List']" class="example-list"
               (cdkDropListDropped)="drop($event)">
               <div class="example-box" *ngFor="let user of users" cdkDrag>
                 <li class="list-group-item">

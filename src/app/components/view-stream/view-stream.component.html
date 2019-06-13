@@ -1,22 +1,48 @@
 <h3>View-Stream component</h3>
 
 <app-user-list>
-
 </app-user-list>
+
+
+
 <div class="container">
   <h3 style="text-align: center">Drag and drop users to follow</h3>
 
-  <div cdkDropList id=streamPos1List [cdkDropListData]="streamPos1"
-    [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList']" class="example-list"
-    (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of streamPos1" cdkDrag>{{item}}</div>
+  <div class="row">
+    <div class="col">
+      <div cdkDropList id=streamPos1List [cdkDropListData]="streamPos1"
+        [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList', 'streamPos3List', 'streamPos4List']" class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of streamPos1" cdkDrag>{{item}}</div>
+      </div>
+    </div>
+
+
+    <div class="col">
+      <div cdkDropList id=streamPos2List [cdkDropListData]="streamPos2"
+        [cdkDropListConnectedTo]="['streamPos1List', 'discoveryUsersList', 'streamPos3List', 'streamPos4List']" class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of streamPos2" cdkDrag>{{item}}</div>
+      </div>
+    </div>
   </div>
 
 
+  <div class="row" id="lower-stream-pos">
 
-  <div cdkDropList id=streamPos2List [cdkDropListData]="streamPos2"
-    [cdkDropListConnectedTo]="['streamPos1List', 'discoveryUsersList']" class="example-list"
-    (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of streamPos2" cdkDrag>{{item}}</div>
+    <div class="col">
+      <div cdkDropList id=streamPos3List [cdkDropListData]="streamPos3"
+        [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList', 'streamPos4List', 'streamPos1List']"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of streamPos3" cdkDrag>{{item}}</div>
+      </div>
+    </div>
+    <div class="col">
+      <div cdkDropList id=streamPos4List [cdkDropListData]="streamPos4"
+        [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList','streamPos3List', 'streamPos1List']"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of streamPos4" cdkDrag>{{item}}</div>
+      </div>
+    </div>
   </div>
 </div>
