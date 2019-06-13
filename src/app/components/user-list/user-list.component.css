@@ -2,6 +2,8 @@
   float: right;
   margin-right: 5%;
   position: relative;
+  height: 100vh;
+
 }
 
 .online{
@@ -25,5 +27,4 @@
 
   .mat-tab-label{
     min-width: 0px !important; 
-    
 }
