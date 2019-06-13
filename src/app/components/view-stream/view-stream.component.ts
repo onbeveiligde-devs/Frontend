@@ -22,15 +22,12 @@ export class ViewStreamComponent implements OnInit {
     this.streamPos2 = [];
     this.streamPos3 = [];
     this.streamPos4 = [];
-
   }
 
   drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }
-
-
     else {
       if (event.container.data.length < 1) {
         transferArrayItem(event.previousContainer.data,
