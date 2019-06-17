@@ -1,78 +1,32 @@
-<!-- <div class="container"> 
-  <div class="row">
-    <div class="col-8" style="background-color:white">col-8</div>
-    <div class="container">
-      <div class="col-md-3"> <img src="1"> </div>
-      <div class="col-md-3"> <img src="2"> </div>
-      <div class="col-md-3"> <img src="3"> </div>
-      <div class="col-md-3"> <img src="4"> </div>
-      <div class="col-md-3"> <img src="5"> </div>
-      <div class="col-md-3"> <img src="50"> </div>
-  </div>
-    <div class="col-4" style="background-color:aqua">col-4</div>
-
-  </div>
-</div> -->
-
 <div class="container-fluid">
+  <br>
+  <div class="text-center">
+    <button class="btn btn-lg orange-bootstrap-button">Start streaming</button>
+  </div>
+  <br>
+
   <div class="row">
-    <div class="row col-md-3 justify-content-left">
+    <div class="row col-md-2">
       <app-user-list></app-user-list>
       <br>
-      <button type="button" class="btn btn-outline-primary">Primary</button>
     </div>
-    <div class="row col-md-9 justify-content-between">
-      <div class="col-md-6" style="background-color:white">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UcRtFYAz2Yo"></iframe>
-        </div>
-      </div>
-      <div class="col-md-6" style="background-color:white">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UcRtFYAz2Yo"></iframe>
-        </div>
-      </div>
-      <div class="col-md-6" style="background-color:white">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UcRtFYAz2Yo"></iframe>
-        </div>
-      </div>
-      <div class="col-md-6" style="background-color:white">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UcRtFYAz2Yo"></iframe>
-        </div>
-      </div>
-      <div class="col-md-6" style="background-color:white">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UcRtFYAz2Yo"></iframe>
-        </div>
-      </div>
-      <div class="col-md-6" style="background-color:white">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UcRtFYAz2Yo"></iframe>
-        </div>
-      </div>
-      <div class="col-md-6" style="background-color:white">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UcRtFYAz2Yo"></iframe>
-        </div>
-      </div>
-      <div class="col-md-6" style="background-color:white">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UcRtFYAz2Yo"></iframe>
-        </div>
-      </div>
-      <div class="col-md-6" style="background-color:white">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UcRtFYAz2Yo"></iframe>
-        </div>
-      </div>
-      <div class="col-md-6" style="background-color:white">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UcRtFYAz2Yo"></iframe>
-        </div>
+   
+    <div class="row col-md-10 justify-content-between">
+      <div *ngFor="let user of users" class="col-md-6 stream-card">
+        <mat-card class="mat-card-border">
+          <img mat-card-image
+            src="https://www.thevelvetvox.com/wp-content/uploads/2017/05/0508-The-Circle-toont-de-waarheid-als-fictie.jpg"
+            alt="">
+          <mat-card-content>
+            <p>
+              {{user.username}} is streaming !
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button class="btn btn orange-bootstrap-button">Watch</button>
+          </mat-card-actions>
+        </mat-card>
       </div>
     </div>
-
   </div>
 </div>

@@ -9,7 +9,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DiscoveryComponent } from './components/discovery/discovery.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatCardModule} from '@angular/material';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
@@ -28,6 +28,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatCardModule,
     DragDropModule
   ],
   providers: [],
