@@ -3,19 +3,15 @@
 </div>
 <div class="container-fluid">
 
-  <div class="row">
-    <div class="col-md-2">
+  <div class="text-center">
+   
       <button class="btn btn-lg orange-bootstrap-button">Start streaming</button>
-    </div>
+      <br><br>
+    
   </div>
 
   <div class="row">
-
-    <div class="row col-md-2">
-      <br>
-    </div>
-
-    <div class="row col-md-10 justify-content-between">
+    <div class="row col-md-12 justify-content-between">
       <div *ngFor="let user of users" class="col-md-6 stream-card">
         <mat-card class="mat-card-border">
           <img mat-card-image
