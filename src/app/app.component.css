@@ -20,3 +20,7 @@
 body, html, .container {
   min-height: 100vh;
 }
+
+.spacing{
+    margin-top:20px;
+}

@@ -1,16 +1,20 @@
+<app-user-list></app-user-list>
+<div class="container">
+</div>
 <div class="container-fluid">
-  <br>
-  <div class="text-center">
-    <button class="btn btn-lg orange-bootstrap-button">Start streaming</button>
-  </div>
-  <br>
 
   <div class="row">
+    <div class="col-md-2">
+      <button class="btn btn-lg orange-bootstrap-button">Start streaming</button>
+    </div>
+  </div>
+
+  <div class="row">
+
     <div class="row col-md-2">
-      <app-user-list></app-user-list>
       <br>
     </div>
-   
+
     <div class="row col-md-10 justify-content-between">
       <div *ngFor="let user of users" class="col-md-6 stream-card">
         <mat-card class="mat-card-border">
