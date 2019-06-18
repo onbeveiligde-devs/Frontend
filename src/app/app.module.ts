@@ -7,8 +7,9 @@ import { ViewSingleStreamComponent } from './components/view-single-stream/view-
 import { RecordStreamComponent } from './components/record-stream/record-stream.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DiscoveryComponent } from './components/discovery/discovery.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatCardModule} from '@angular/material';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { MatTabsModule } from '@angular/material';
 
@@ -20,7 +21,8 @@ import { MatTabsModule } from '@angular/material';
     ViewStreamComponent,
     ViewSingleStreamComponent,
     RecordStreamComponent,
-    UserListComponent
+    UserListComponent,
+    DiscoveryComponent
   ],
   imports: [
     BrowserModule,
@@ -29,8 +31,9 @@ import { MatTabsModule } from '@angular/material';
     MatButtonModule,
     MatCheckboxModule,
     DragDropModule,
-    MatTabsModule
-    
+    MatTabsModule,
+    MatCardModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
