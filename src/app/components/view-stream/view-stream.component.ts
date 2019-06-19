@@ -9,18 +9,14 @@ import { templateJitUrl } from '@angular/compiler';
   templateUrl: './view-stream.component.html',
   styleUrls: ['./view-stream.component.css']
 })
-export class ViewStreamComponent implements AfterViewInit {
+export class ViewStreamComponent {
   streamPos1: any[];
   streamPos2: any[];
   streamPos3: any[];
   streamPos4: any[];
 
 
-  ngAfterViewInit() {
-
-
-
-  }
+  
 
 
   constructor(private router: Router) { }
@@ -43,6 +39,7 @@ export class ViewStreamComponent implements AfterViewInit {
           event.previousIndex,
           event.currentIndex);
 
+          console.log(event);
       }
     }
   }
