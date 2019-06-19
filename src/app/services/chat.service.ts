@@ -12,7 +12,7 @@ import { map, tap } from 'rxjs/operators';
 export class ChatService {
 
     readonly url = 'http://localhost:3000'
-    chats: Chat[];
+    chats: Chat[] = [];
     constructor(
         private httpClient: HttpClient, private http:  Http,
     ) { }
@@ -55,6 +55,23 @@ export class ChatService {
                 })
             )
     }
+
+    testMessages() {
+        return new Promise<Chat[]>((res,rej) => {
+
+      
+
+            let num = Math.floor(Math.random()* Math.floor(99))
+
+            let message = "test " + num;
+            let chat = new Chat("id", null,null, message,null,null );
+            this.chats.push(chat);
+            console.log(' test messages sent ')
+            res(this.chats);
+        })
+    }
+
+    
 }
 
 
