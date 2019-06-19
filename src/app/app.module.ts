@@ -12,6 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatCardModule} from '@angular/material';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { MatTabsModule } from '@angular/material';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 
@@ -22,7 +23,8 @@ import { MatTabsModule } from '@angular/material';
     ViewSingleStreamComponent,
     RecordStreamComponent,
     UserListComponent,
-    DiscoveryComponent
+    DiscoveryComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
