@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class ViewStreamComponent implements OnInit {
   streamPos4: any[];
 
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.streamPos1 = [];
@@ -36,6 +37,10 @@ export class ViewStreamComponent implements OnInit {
       }
     }
     return;
+  }
+
+  viewSingle(id: string){
+      this.router.navigate(['/follow/' + id]);
   }
 
 
