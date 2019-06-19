@@ -1,0 +1,32 @@
+<app-user-list></app-user-list>
+<div class="container">
+</div>
+<div class="container-fluid">
+
+  <div class="text-center">
+   
+      <button class="btn btn-lg orange-bootstrap-button">Start streaming</button>
+      <br><br>
+    
+  </div>
+
+  <div class="row">
+    <div class="row col-md-12 justify-content-between">
+      <div *ngFor="let user of users" class="col-md-6 stream-card">
+        <mat-card class="mat-card-border">
+          <img mat-card-image
+            src="https://www.thevelvetvox.com/wp-content/uploads/2017/05/0508-The-Circle-toont-de-waarheid-als-fictie.jpg"
+            alt="">
+          <mat-card-content>
+            <p>
+              {{user.username}} is streaming !
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button class="btn btn orange-bootstrap-button">Watch</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

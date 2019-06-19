@@ -1,0 +1,20 @@
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.orange-bootstrap-button {
+  color: orangered;
+  border-color: orangered;
+}
+
+.mat-card-border {
+  border: 2px solid#ccc;
+  border-radius: 8px; 
+}
+
+.stream-card{
+  padding-bottom: 10px;
+}

@@ -7,6 +7,13 @@ import { ViewSingleStreamComponent } from './components/view-single-stream/view-
 import { RecordStreamComponent } from './components/record-stream/record-stream.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DiscoveryComponent } from './components/discovery/discovery.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule, MatCheckboxModule, MatCardModule} from '@angular/material';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { MatTabsModule } from '@angular/material';
+
+
 
 @NgModule({
   declarations: [
@@ -14,11 +21,19 @@ import { AppRoutingModule } from './app-routing.module';
     ViewStreamComponent,
     ViewSingleStreamComponent,
     RecordStreamComponent,
-    UserListComponent
+    UserListComponent,
+    DiscoveryComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    DragDropModule,
+    MatTabsModule,
+    MatCardModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
