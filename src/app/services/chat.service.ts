@@ -1,11 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Chat } from './../models/Chat';
 import { Injectable } from '@angular/core';
 import { User } from '../models/User';
 import { Headers, Http } from '@angular/http';
+
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { Body } from '@angular/http/src/body';
-
 @Injectable({
     providedIn: 'root'
 })
@@ -14,36 +14,30 @@ export class ChatService {
     readonly url = 'http://localhost:3000'
     chats: Chat[];
     constructor(
-        private http: Http,
+        private httpClient: HttpClient, private http:  Http,
     ) { }
 
-    fetchChatsForUser(userId: string) {
-        return this.http.get(this.url + `/chat/${userId}`)
-            .pipe(
-                map(response => response.json().map(data => {
-                    //Is dit niet handiger ? 
-                    // let user = new User(
-                    //     data.user.id,
-                    //     data.user.username,
-                    //     data.user.online,
-                    //     data.user.balance,
-                    //     data.user.privateKey
-                    // )
-                    //Later van de service halen
-                    let user = null;
-                    let author = null;
-                    //Maken van chat object 
-                    let chat = new Chat(
-                        data.id,
-                        user,
-                        author,
-                        data.message,
-                        data.timestamp,
-                        data.hash
-                    )
-                    return chat;
-                }))
-            )
+    public createChatFromObject(obj): Chat {
+        // TODO: Get online status from obj
+        return new Chat(null,null,null,null,null,null);
+    }
+
+    fetchChatsForUser(userId: string) : Promise<Chat[]>{
+        console.log('infunction')
+        return new Promise<Chat[]>((res,rej) => {
+            this.httpClient.get<any>(this.url + `/chat/${userId}`)
+            .toPromise()
+            .then(result => {
+                console.log(result)
+                if(!result.chats){
+                    rej("Chats not found")
+                }else {
+                    res(result.chats.map(x=>this.createChatFromObject(x)))
+                }
+  
+            })
+        })
+          
     }
 
     addMessage(message: string, userId: string): Observable<boolean> {

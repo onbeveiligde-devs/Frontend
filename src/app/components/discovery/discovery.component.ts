@@ -1,3 +1,5 @@
+import { ChatService } from './../../services/chat.service';
+
 import { MatCardModule } from '@angular/material';
 import { User } from './../../models/User';
 import { Component, OnInit } from '@angular/core';
@@ -16,13 +18,14 @@ export class DiscoveryComponent implements OnInit {
   users : User[];
   onlineUsers : User[];
 
-  constructor(private router : Router ) { }
+  constructor(private router : Router, public chatService : ChatService ) { }
 
   ngOnInit() {
 
 
     //TODO: Implement service to retrieve all users
 
+    
     this.users=[];
     this.onlineUsers=[];
 

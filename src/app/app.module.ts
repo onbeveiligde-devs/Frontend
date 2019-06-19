@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -17,7 +18,7 @@ import { LoginComponent } from './components/login/login.component';
 import {FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component'
-
+import { HttpModule } from '@angular/http';
 
 
 
@@ -38,6 +39,8 @@ import { RegisterComponent } from './components/register/register.component'
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    HttpModule,
+    HttpClientModule,
     FormsModule,
     MatButtonModule,
     MatCheckboxModule,
