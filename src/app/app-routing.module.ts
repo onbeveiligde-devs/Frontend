@@ -6,6 +6,7 @@ import { DiscoveryComponent } from './components/discovery/discovery.component';
 import { ViewSingleStreamComponent } from './components/view-single-stream/view-single-stream.component';
 import { RecordStreamComponent } from './components/record-stream/record-stream.component';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'discovery', component: DiscoveryComponent, pathMatch: 'full' },
   { path: 'follow/:id', component: ViewSingleStreamComponent, pathMatch: 'full' },
   { path: 'record', component: RecordStreamComponent, pathMatch: 'full' },
-  {path : 'login', component : LoginComponent, pathMatch: 'full'}
+  {path : 'login', component : LoginComponent, pathMatch: 'full'},
+  { path : 'register', component : RegisterComponent, pathMatch: 'full'}
 ];
 
 
