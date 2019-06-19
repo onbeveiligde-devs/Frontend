@@ -1,4 +1,8 @@
-<div style="position:fixed; left:0; height: 100%; width: 100%; background-color: white;">
+<button type="button" (click)="recordStream()" style="position:relative;top:10px;left:1%;width:170px;height: 50px;" class="btn btn-lg orange-bootstrap-button">Start streaming</button>
+<button type="button" (click)="viewMultiple()" style="position:relative;top:10px;left:5%;width:216px;height: 50px;" class="btn btn-lg orange-bootstrap-button">Watch more streams</button>
+
+
+<div style="position:fixed; top: 170px;left:0; height: calc(100%-170px); width: 100%; background-color: white;">
   <video style="position: fixed; width:70%; min-height: calc(100% - 56px);" controls>
     <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
     <source src="https://www.w3schools.com/html/mov_bbb.ogg" type="video/ogg">
@@ -19,7 +23,8 @@
         <span class="sender" style="font-weight: bold">Teun</span>:
         <span class="content">leuke stream</span>
       </div>
-      <div class="message uneven" style="border-top-width: 1px; border-color: #999; border-top-style: solid; background-color: #ddd">
+      <div class="message uneven"
+        style="border-top-width: 1px; border-color: #999; border-top-style: solid; background-color: #ddd">
         <span class="sender" style="font-weight: bold">Bas</span>:
         <span class="content">valt mee</span>
       </div>
