@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, AfterViewInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
+import { templateJitUrl } from '@angular/compiler';
 
 
 @Component({
@@ -8,11 +9,18 @@ import { Router } from '@angular/router';
   templateUrl: './view-stream.component.html',
   styleUrls: ['./view-stream.component.css']
 })
-export class ViewStreamComponent implements OnInit {
+export class ViewStreamComponent implements AfterViewInit {
   streamPos1: any[];
   streamPos2: any[];
   streamPos3: any[];
   streamPos4: any[];
+
+
+  ngAfterViewInit() {
+
+
+
+  }
 
 
   constructor(private router: Router) { }
@@ -34,14 +42,8 @@ export class ViewStreamComponent implements OnInit {
           event.container.data,
           event.previousIndex,
           event.currentIndex);
+
       }
     }
-    return;
   }
-
-  viewSingle(id: string){
-      this.router.navigate(['/follow/' + id]);
-  }
-
-
 }
