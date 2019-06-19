@@ -60,7 +60,7 @@
 
   .div.example-box.cdk-drag.ng-star-inserted{
     width: -webkit-fill-available;
-    height:  initial;
+    height:  auto;
     touch-action: none;
     -webkit-user-drag: none;
     -webkit-tap-highlight-color: transparent;
