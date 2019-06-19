@@ -43,4 +43,8 @@ export class ViewStreamComponent {
       }
     }
   }
+  viewSingle(id : string){
+    this.router.navigate(['/follow/' + id])
+  }
+
 }

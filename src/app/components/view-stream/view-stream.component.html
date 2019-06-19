@@ -11,12 +11,12 @@
         [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList', 'streamPos3List', 'streamPos4List']"
         class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" style="width: -webkit-fill-available" *ngFor="let item of streamPos1" cdkDrag>
-          <video controls width="300px"
-            src="http://localhost:3000/stream/13333?uuid=89586360-92c3-11e9-ae69-3bc59342bf25" type="video/webm"
+          <video controls width="100%"
+            src="http://localhost:3000/stream/113?uuid=7ad75c40-92de-11e9-9091-a93b89f25168--5" type="video/webm"
             autoplay>
-
-
           </video>
+
+
           <button type="button" (click)="viewSingle(item.id)" style="margin-top: auto"
             class="btn btn-md orange-bootstrap-button">Watch</button>
         </div>
