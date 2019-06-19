@@ -32,7 +32,6 @@ export class UserListComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      if (event.container.data.length=0)
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
