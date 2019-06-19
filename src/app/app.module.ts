@@ -9,10 +9,14 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DiscoveryComponent } from './components/discovery/discovery.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatCardModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatCardModule, MatFormFieldModule,MatInputModule} from '@angular/material';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { MatTabsModule } from '@angular/material';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoginComponent } from './components/login/login.component';
+import {FormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms'
+
 
 
 
@@ -24,17 +28,22 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     RecordStreamComponent,
     UserListComponent,
     DiscoveryComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule,
     MatButtonModule,
     MatCheckboxModule,
     DragDropModule,
     MatTabsModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
     DragDropModule
   ],
   providers: [],

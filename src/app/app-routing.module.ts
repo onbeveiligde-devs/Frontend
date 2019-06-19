@@ -5,6 +5,7 @@ import { ViewStreamComponent } from './components/view-stream/view-stream.compon
 import { DiscoveryComponent } from './components/discovery/discovery.component';
 import { ViewSingleStreamComponent } from './components/view-single-stream/view-single-stream.component';
 import { RecordStreamComponent } from './components/record-stream/record-stream.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 const routes: Routes = [
