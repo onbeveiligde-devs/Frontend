@@ -17,7 +17,7 @@
           (cdkDropListDropped)="drop($event)">
           <div class="example-box" *ngFor="let user of users" cdkDrag>
             <li *ngIf="user.online" class="list-group-item">
-              {{user.username}}
+              {{user.name}}
               <span *ngIf="user.online" class=online></span>
               <span *ngIf="!user.online" class=offline></span>
             </li>
@@ -35,7 +35,7 @@
               (cdkDropListDropped)="drop($event)">
               <div class="example-box" *ngFor="let user of users" cdkDrag>
                 <li class="list-group-item">
-                  {{user.username}}
+                  {{user.name}}
                   <span *ngIf="user.online" class=online></span>
                   <span *ngIf="!user.online" class=offline></span>
                 </li>

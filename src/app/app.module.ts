@@ -17,6 +17,10 @@ import { LoginComponent } from './components/login/login.component';
 import {FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component'
+import { UserService } from './services/user.service';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -35,6 +39,8 @@ import { RegisterComponent } from './components/register/register.component'
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -47,9 +53,11 @@ import { RegisterComponent } from './components/register/register.component'
     MatSnackBarModule,
     MatFormFieldModule,
     MatInputModule,
-    DragDropModule
+    DragDropModule,
+    CommonModule
+   
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,7 @@ import { User } from './../../models/User';
 import { Component, OnInit } from '@angular/core';
 import { UserListComponent } from '../user-list/user-list.component'
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-discovery',
@@ -16,9 +17,12 @@ export class DiscoveryComponent implements OnInit {
   users : User[];
   onlineUsers : User[];
 
-  constructor(private router : Router ) { }
+  constructor(private router : Router, private userService : UserService ) { }
 
   ngOnInit() {
+
+    this.userService.fetchUsers();
+
 
 
     //TODO: Implement service to retrieve all users
