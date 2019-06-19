@@ -1,0 +1,61 @@
+<app-user-list>
+</app-user-list>
+
+
+
+<div class="container">
+  <h3 style="text-align: center">Drag and drop users to follow</h3>
+
+  <div class="row">
+    <div class="col-6">
+      <div cdkDropList id=streamPos1List [cdkDropListData]="streamPos1"
+        [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList', 'streamPos3List', 'streamPos4List']"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" style="width: -webkit-fill-available" *ngFor="let item of streamPos1" cdkDrag>
+          {{item}}
+          <!-- <iframe width="900" height="400" src="https://www.youtube.com/embed/_ZQAzqcoJAA" frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+          </iframe> -->
+          <button type="button" (click)="viewSingle(item.id)" style="margin-top: auto"
+            class="btn btn-md orange-bootstrap-button">Watch</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-6">
+      <div cdkDropList id=streamPos2List [cdkDropListData]="streamPos2"
+        [cdkDropListConnectedTo]="['streamPos1List', 'discoveryUsersList', 'streamPos3List', 'streamPos4List']"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of streamPos2" cdkDrag>{{item}}
+          <button type="button" (click)="viewSingle(item.id)" style="margin-top: auto"
+            class="btn btn-md orange-bootstrap-button">Watch</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row" id="lower-stream-pos">
+    <div class="col-6">
+      <div cdkDropList id=streamPos3List [cdkDropListData]="streamPos3"
+        [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList', 'streamPos4List', 'streamPos1List']"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of streamPos3" cdkDrag>{{item}}
+          <button type="button" (click)="viewSingle(item.id)" style="margin-top: auto"
+            class="btn btn-md orange-bootstrap-button">Watch</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div cdkDropList id=streamPos4List [cdkDropListData]="streamPos4"
+        [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList','streamPos3List', 'streamPos1List']"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of streamPos4" cdkDrag>{{item}}
+          <button type="button" (click)="viewSingle(item.id)" style="margin-top: auto"
+            class="btn btn-md orange-bootstrap-button">Watch</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

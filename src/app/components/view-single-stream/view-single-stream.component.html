@@ -1,0 +1,33 @@
+<button type="button" (click)="recordStream()" style="position:relative;top:10px;left:1%;width:200px;height: 40px;" class="btn btn-md orange-bootstrap-button">Start streaming</button>
+<button type="button" (click)="viewMultiple()" style="position:relative;top:10px;left:5%;width:200px;height: 40px;" class="btn btn-md orange-bootstrap-button">Watch more streams</button>
+
+
+<div style="position:fixed; top: 170px;left:0; height: calc(100%-170px); width: 100%; background-color: white;">
+  <video style="position: fixed; width:70%; min-height: calc(100% - 56px);" controls>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    <source src="https://www.w3schools.com/html/mov_bbb.ogg" type="video/ogg">
+    Your browser does not support HTML5 video.
+  </video>
+  <div class="chat" style="position: fixed; width: 30%; float: right; height:100%; background-color: white; right: 0">
+    <div class="type-message" style="bottom:0; position: fixed; height: 50px; width: 30%">
+      <div class="input-group">
+        <input type="text" class="form-control" aria-label="Message">
+        <div class="input-group-append">
+          <span class="input-group-text">Send message</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="messages" style="position:fixed; height: calc(100% - 106px); width:100%; top:56px">
+      <div class="message even" style="border-top-width: 1px; border-color: #999; border-top-style: solid">
+        <span class="sender" style="font-weight: bold">Teun</span>:
+        <span class="content">leuke stream</span>
+      </div>
+      <div class="message uneven"
+        style="border-top-width: 1px; border-color: #999; border-top-style: solid; background-color: #ddd">
+        <span class="sender" style="font-weight: bold">Bas</span>:
+        <span class="content">valt mee</span>
+      </div>
+    </div>
+  </div>
+</div>
