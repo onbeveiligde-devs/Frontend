@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
-import { MatCardModule } from '@angular/material';
+import { MatCardModule, MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _snackbar : MatSnackBar) { }
 
   loading = false;
   loginForm: FormGroup;
@@ -20,9 +20,13 @@ export class LoginComponent implements OnInit {
     console.log(publickey);
     console.log(privatekey);
 
-
+    this.loading = true;
+    this._snackbar.open("Authservice not implemented yet", "close", {
+      duration: 2000
+    })
     // this.authService.login(publickey,privatekey).subscribe(
-
+          
+          //this.loading = false;
     // )
   }
 
