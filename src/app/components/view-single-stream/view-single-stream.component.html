@@ -13,14 +13,16 @@
   <div class="chat" style="position: fixed; width: 30%; float: right; height:100%; background-color: white; right: 0">
     <div class="type-message" style="bottom:0; position: fixed; height: 50px; width: 30%">
       <div class="input-group">
-        <input type="text" class="form-control" aria-label="Message">
-        <div class="input-group-append">
-          <span class="input-group-text">Send message</span>
-        </div>
+        <input type="text" class="form-control" [value]="message" (input)="message = $event.target.value"  >
+        <button class="input-group-text" (click)="sendMessage(message)" >Send message</button>
+     
       </div>
     </div>
 
-    <div class="messages" style="position:fixed; height: calc(100% - 106px); width:100%; top:56px">
+
+
+ 
+    <div class="messageScrollable container-fluid overflow-auto">
       <!-- <div class="message even" style="border-top-width: 1px; border-color: #999; border-top-style: solid">
         <span class="sender" style="font-weight: bold">Teun</span>:
         <span class="content">leuke stream</span>
@@ -38,6 +40,7 @@
           <span class="content">{{chat.message}}</span>
         </div>
       </div>
-    </div>
+   
+  </div>
   </div>
 </div>

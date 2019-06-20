@@ -13,8 +13,10 @@ export class ViewSingleStreamComponent implements OnInit {
 
   constructor(private router:Router, private chatService : ChatService) { }
 
+  message : string = "Enter message"
   subscription : Subscription
   chats : Chat[] = []
+  userId : string = "IDHIERSVP"
   ngOnInit() {
 
     const timer = interval(1000);
@@ -25,6 +27,20 @@ export class ViewSingleStreamComponent implements OnInit {
   }
 
 
+  sendMessage(message: string) {
+
+    console.log(message)
+    this.chatService.addMessage(message, this.userId).subscribe(
+      (res) => {
+        console.log(res)
+      },
+      (err) =>
+      {
+        console.log(err)
+      }
+      
+    )
+  }
   viewMultiple(){
     this.router.navigate(['/follow'])
   }

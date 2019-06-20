@@ -2,3 +2,8 @@
     color: orangered;
     border-color: orangered;
   }
+
+  .messageScrollable {
+    max-height: 600px;
+
+  }
