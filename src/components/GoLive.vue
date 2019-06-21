@@ -95,23 +95,23 @@ export default {
         var videoBlob = new Blob([event.data], { type: event.data.type });
         console.log("Blob size=" + videoBlob.size);
 
-        console.log("blob is");
-        console.log(videoBlob);
+        console.log("blob is", videoBlob);
         this.blobToBase64(
           videoBlob, 
           function (base64) 
           {
-            console.log("de base64 van de blob is");
-            console.log(base64);
+            console.log("de base64 van de blob is", base64);
 
             this.postSec = this.postIndex * this.intervalSec;
             let URL = settings.APIURL + 'upload/' + this.channel;
             let data = new FormData();
 
-            data.append("blob_base64", this.base64);
+            data.append("blob_base64", base64);
             data.append("blob_name", "video_" + this.postIndex + ".webm");
             data.append("blob_index", this.postIndex);
             data.append("blob_sec", this.postSec);
+
+            console.log(URL, data);
 
             axios
               .post(URL, data)
