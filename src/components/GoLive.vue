@@ -42,6 +42,22 @@ window.RTCPeerConnection =
   window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
 window.RTCIceCandidate = window.mozRTCIceCandidate || window.RTCIceCandidate;
 
+function blobToBase64(blob, callback) {
+  console.log("blob to base64");
+  var reader = new FileReader();
+  reader.onload = function() {
+    var dataUrl = reader.result;
+    var base64 = dataUrl.split(",")[2];
+
+    if (base64 == null) {
+      base64 = dataUrl.split(",")[1];
+    }
+
+    callback(base64);
+  };
+  reader.readAsDataURL(blob);
+}
+
 // @ is an alias to /src
 import settings from "@/settings.json";
 import crypto from "@/crypto";
@@ -82,9 +98,9 @@ export default {
       } else {
         this.recorder = new MediaRecorder(this.localStream);
       }
-      
+
       this.recorder.ondataavailable = function(event) {
-        console.log('new event', event);
+        console.log("new event", event);
 
         console.log(
           "data available, recordIndex=",
@@ -96,39 +112,35 @@ export default {
         console.log("Blob size=" + videoBlob.size);
 
         console.log("blob is", videoBlob);
-        this.blobToBase64(
-          videoBlob, 
-          function (base64) 
-          {
-            console.log("de base64 van de blob is", base64);
+        blobToBase64(videoBlob, function(base64) {
+          console.log("de base64 van de blob is", base64);
 
-            this.postSec = this.postIndex * this.intervalSec;
-            let URL = settings.APIURL + 'upload/' + this.channel;
-            let data = new FormData();
+          this.postSec = this.postIndex * this.intervalSec;
+          let URL = settings.APIURL + "upload/" + this.channel;
+          let data = new FormData();
 
-            data.append("blob_base64", base64);
-            data.append("blob_name", "video_" + this.postIndex + ".webm");
-            data.append("blob_index", this.postIndex);
-            data.append("blob_sec", this.postSec);
+          data.append("blob_base64", base64);
+          data.append("blob_name", "video_" + this.postIndex + ".webm");
+          data.append("blob_index", this.postIndex);
+          data.append("blob_sec", this.postSec);
 
-            console.log(URL, data);
+          console.log(URL, data);
 
-            axios
-              .post(URL, data)
-              .then(response => {
-                console.log("response", response);
-              })
-              .catch(error => {
-                console.log("error", error);
-              });
-              
-            if (postIndex == 1) {
-              this.watchDiv = 'watch/' + this.channel;
-            }
-            this.postIndex++;
+          axios
+            .post(URL, data)
+            .then(response => {
+              console.log("response", response);
+            })
+            .catch(error => {
+              console.log("error", error);
+            });
+
+          if (this.postIndex == 1) {
+            this.watchDiv = "watch/" + this.channel;
           }
-        );
-      }
+          this.postIndex++;
+        });
+      };
 
       this.recorder.start(this.intervalMiliSec);
       console.log("start recording");
@@ -141,25 +153,9 @@ export default {
       }
     },
 
-    blobToBase64(blob, callback) {
-      console.log('blob to base64');
-      var reader = new FileReader();
-      reader.onload = function() {
-        var dataUrl = reader.result;
-        var base64 = dataUrl.split(",")[2];
-
-        if (base64 == null) {
-          base64 = dataUrl.split(",")[1];
-        }
-
-        callback(base64);
-      };
-      reader.readAsDataURL(blob);
-    },
-
     // Request the usermedia
     startVideo() {
-      console.log('start video');
+      console.log("start video");
       navigator.mediaDevices
         .getUserMedia({
           video: {
@@ -182,7 +178,7 @@ export default {
     },
 
     stopVideo() {
-      console.log('stop video');
+      console.log("stop video");
       if (this.localStream) {
         this.localVideo.pause();
         this.localVideo.srcDoc = "";
@@ -193,12 +189,12 @@ export default {
     },
 
     ab2str(buf) {
-      console.log('arrayBuffer to string');
+      console.log("arrayBuffer to string");
       return String.fromCharCode.apply(null, new Uint16Array(buf));
     },
 
     str2ab(str) {
-      console.log('string to array buffer');
+      console.log("string to array buffer");
       var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
       var bufView = new Uint16Array(buf);
       for (var i = 0, strLen = str.length; i < strLen; i++) {
