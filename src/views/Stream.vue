@@ -11,7 +11,7 @@
         <font-awesome-icon icon="stream"/>Go Live
       </b-button>
     </b-input-group>
-    <GoLive :channel="channelName"></GoLive>
+    <GoLive></GoLive>
   </div>
 </template>
 
@@ -19,6 +19,7 @@
 // @ is an alias to /src
 import settings from "@/settings.json";
 import GoLive from "@/components/GoLive.vue";
+import store from "@/store";
 
 export default {
   name: "stream",
@@ -32,10 +33,12 @@ export default {
   },
   methods: {
     goWatch() {
-      settings.APIURL = "watch/" + channelName;
+      // settings.APIURL = "watch/" + this.channelName;
+      store.commit('channel', this.channelName);
     },
     goLive() {
-      settings.APIURL = "golive/" + channelName;
+      // settings.APIURL = "golive/" + this.channelName;
+      store.commit('channel', this.channelName);
     }
   }
 };

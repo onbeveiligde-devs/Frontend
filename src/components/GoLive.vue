@@ -29,7 +29,7 @@
       style="max-width: 100%; border: 1px solid;"
     ></video>
 
-    <a v-if="watchDiv" target="_new" :href="watchDiv">{{ watchDiv }}</a>
+    <a v-show="ready()" target="_new" :href="apiurl+'watch/'+channel">{{ channel }}</a>
   </div>
 </template>
 
@@ -58,36 +58,43 @@ function blobToBase64(blob, callback) {
   reader.readAsDataURL(blob);
 }
 
+import axios from "axios";
 // @ is an alias to /src
 import settings from "@/settings.json";
 import crypto from "@/crypto";
-import axios from "axios";
+import store from "@/store";
 
 export default {
   name: "golive",
-  props: {
-    channel: String
-  },
   computed: {
     localVideo() {
       return this.$refs.video;
+    },
+    channel() {
+      return store.state.channel; 
+    },
+    apiurl() {
+      return settings.APIURL; 
+    }
+  },
+  watch: {
+    channel(n, old) {
+      console.log("new channel: ", n);
     }
   },
   data() {
     return {
-      watchDiv: "",
       localStream: null,
       recorder: null,
       blobUrl: null,
       blobUrls: [],
-      recordIndex: 0,
-      postIndex: 0,
-      postSec: 0,
-      intervalSec: 5,
-      intervalMiliSec: this.intervalSec * 1000
+      intervalMiliSec: store.state.intervalSec * 1000
     };
   },
   methods: {
+    ready() {
+      return store.state.postIndex >= 1;
+    },
     Submit() {
       if (!this.localStream) {
         console.error("no stream");
@@ -102,27 +109,24 @@ export default {
       this.recorder.ondataavailable = function(event) {
         console.log("new event", event);
 
-        console.log(
-          "data available, recordIndex=",
-          this.recordIndex,
-          " start playback. type=",
-          event.data.type
-        );
+        console.log('postIndex', store.state.postIndex);
+        
+        console.log('start playback type', event.data.type);
+
         var videoBlob = new Blob([event.data], { type: event.data.type });
         console.log("Blob size=" + videoBlob.size);
 
-        console.log("blob is", videoBlob);
+        // console.log("blob is", videoBlob);
         blobToBase64(videoBlob, function(base64) {
           console.log("de base64 van de blob is", base64);
 
-          this.postSec = this.postIndex * this.intervalSec;
-          let URL = settings.APIURL + "upload/" + this.channel;
+          let URL = settings.APIURL + "upload/" + store.state.channel;
           let data = new FormData();
 
           data.append("blob_base64", base64);
-          data.append("blob_name", "video_" + this.postIndex + ".webm");
-          data.append("blob_index", this.postIndex);
-          data.append("blob_sec", this.postSec);
+          data.append("blob_name", "video_" + store.state.postIndex + ".webm");
+          data.append("blob_index", store.state.postIndex);
+          data.append("blob_sec", store.state.postSec);
 
           console.log(URL, data);
 
@@ -134,11 +138,7 @@ export default {
             .catch(error => {
               console.log("error", error);
             });
-
-          if (this.postIndex == 1) {
-            this.watchDiv = "watch/" + this.channel;
-          }
-          this.postIndex++;
+          store.commit('postIndex');
         });
       };
 
