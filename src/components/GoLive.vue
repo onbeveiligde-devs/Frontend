@@ -142,6 +142,7 @@ export default {
     },
 
     blobToBase64(blob, callback) {
+      console.log('blob to base64');
       var reader = new FileReader();
       reader.onload = function() {
         var dataUrl = reader.result;
@@ -158,6 +159,7 @@ export default {
 
     // Request the usermedia
     startVideo() {
+      console.log('start video');
       navigator.mediaDevices
         .getUserMedia({
           video: {
@@ -180,6 +182,7 @@ export default {
     },
 
     stopVideo() {
+      console.log('stop video');
       if (this.localStream) {
         this.localVideo.pause();
         this.localVideo.srcDoc = "";
@@ -190,12 +193,12 @@ export default {
     },
 
     ab2str(buf) {
-      // arrayBuffer to string
+      console.log('arrayBuffer to string');
       return String.fromCharCode.apply(null, new Uint16Array(buf));
     },
 
     str2ab(str) {
-      // string to array buffer
+      console.log('string to array buffer');
       var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
       var bufView = new Uint16Array(buf);
       for (var i = 0, strLen = str.length; i < strLen; i++) {
