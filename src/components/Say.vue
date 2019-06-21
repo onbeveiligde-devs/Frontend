@@ -3,11 +3,12 @@
     <b-form-group>
       <div class="form-group">
         <div class="input-group mb-3">
-          <b-button @click="sendMessage" variant="outline-danger" class="input-group-prepend">
+          <!-- <b-button @click="sendMessage" variant="outline-danger" class="input-group-prepend">
             <font-awesome-icon icon="chevron-left"/>
-          </b-button>
+          </b-button> -->
 
-          <textarea-autosize id="say" class="form-control" v-model="message"></textarea-autosize>
+          <!-- <textarea-autosize id="say" class="form-control" v-model="message"></textarea-autosize> -->
+          <input type="text" id="say" class="form-control" v-model="message" />
 
           <b-button @click="sendMessage" variant="success" class="input-group-append">
             <font-awesome-icon icon="chevron-right"/>
