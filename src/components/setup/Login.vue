@@ -44,7 +44,7 @@
         <div v-if="step == 3">
           <input type="text" :placeholder="status+'...'" class="form-control" disabled>
         </div>
-        <b-button v-if="step == 3" variant="outline-light" class="input-group-append">
+        <b-button v-if="loading" variant="outline-light" class="input-group-append">
           <div class="spinner-border text-primary" role="status">
             <span class="sr-only">Loading...</span>
           </div>
