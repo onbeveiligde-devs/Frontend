@@ -172,7 +172,7 @@ export default {
       loading: false,
       status: "",
       name: "nick",
-      sign: ""
+      signature: ""
     };
   },
   mounted: function() {
@@ -181,11 +181,30 @@ export default {
     }
   },
   methods: {
+    back() {
+      this.step--;
+    },
+    next() {
+      this.step++;
+      if (this.step >= 3) {
+        sign(this.name, this.key.private)
+          .then(signature => {
+            // signature is a arraybuffer of the SubtleCrypto sign
+            console.log("signature", ab2b64(signature));
+            this.signature = ab2b64(signature);
+
+            this.register();
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
+      }
+    },
     register() {
       let data = {
         name: this.name,
         publicKey: this.key.public,
-        signature: this.name
+        signature: this.signature
       };
       console.log("register", data);
 
@@ -217,36 +236,6 @@ export default {
         publicKey: this.key.public
       };
       console.log("login", data);
-    },
-    next() {
-      this.step++;
-      if (this.step >= 3) {
-        sign(this.name, this.key.private)
-          .then(signature => {
-            // signature is a arraybuffer of the SubtleCrypto sign
-            console.log("signature", ab2b64(signature));
-          })
-          .catch(function(err) {
-            console.error(err);
-          });
-      }
-    },
-    back() {
-      this.step--;
-    },
-    send(e) {
-      e.preventDefault();
-      this.sendMessage();
-    },
-    sendMessage() {
-      console.log("say", this.message);
-      this.socket.emit("MSGTOSERV", {
-        message: this.message,
-        author: store.state.user._id,
-        subject: this.subject,
-        timestamp: Date.now(),
-        sign: this.message + "-" + this.timestamp
-      });
     }
   }
 };
