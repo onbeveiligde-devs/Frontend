@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { MatCardModule, MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,7 +9,7 @@ import { MatCardModule, MatSnackBar } from '@angular/material';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private _snackbar : MatSnackBar) { }
+  constructor(private _snackbar : MatSnackBar, private router : Router) { }
 
   loading = false;
   loginForm: FormGroup;
@@ -21,9 +22,10 @@ export class LoginComponent implements OnInit {
     console.log(privatekey);
 
     this.loading = true;
-    this._snackbar.open("Authservice not implemented yet", "close", {
+    this._snackbar.open("Checking authentication", "close", {
       duration: 2000
     })
+    this.router.navigate(['/discovery'])
     // this.authService.login(publickey,privatekey).subscribe(
           
           //this.loading = false;
