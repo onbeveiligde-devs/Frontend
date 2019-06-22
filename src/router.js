@@ -14,26 +14,6 @@ export default new Router({
       component: Home
     },
     {
-      path: '/video',
-      name: 'video',
-      component: () => import('./views/Video.vue')
-    }, 
-    {
-      path: '/stream',
-      name: 'stream',
-      component: () => import('./views/Stream.vue')
-    },
-    {
-      path: '/chat',
-      name: 'chat',
-      component: () => import('./views/User.vue')
-    },
-    {
-      path: '/chat/:subject',
-      name: 'chat',
-      component: () => import('./views/Chat.vue')
-    },
-    {
       path: '*',
       name: 'notfound',
       component: () => import('./views/NotFound.vue')
