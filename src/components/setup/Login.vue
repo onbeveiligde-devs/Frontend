@@ -63,13 +63,25 @@ export default {
   props: {
     subject: String
   },
+  computed: {
+    key() {
+      return store.state.key;
+    },
+    user() {
+      return store.state.user;
+    }
+  },
+  watch: {
+    key(n, old) {
+      // console.log("new key: ", n);
+    },
+    user(n, old) {
+      // console.log("new user: ", n);
+    }
+  },
   data() {
     return {
       step: 0,
-      key: {
-        public: null,
-        private: null
-      },
       socket: io(settings.APIDOMAIN)
     };
   },
@@ -107,11 +119,11 @@ export default {
 </script>
 
 <style scoped>
-/* textarea,
+textarea,
 textarea-autosize {
   width: 100%;
-  box-sizing: border-box; // For IE and modern versions of Chrome
-  -moz-box-sizing: border-box; // For Firefox
-  -webkit-box-sizing: border-box; // For Safari
-} */
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
 </style>

@@ -28,8 +28,12 @@
         <Chat></Chat>
       </b-col>
 
-      <b-col lg="4">
+      <b-col v-if="loggedin" lg="4">
         <GoLive></GoLive>
+      </b-col>
+
+      <b-col v-if="!loggedin" lg="4">
+        <h3>Login</h3>
         <Login></Login>
       </b-col>
     </b-row>
@@ -88,9 +92,15 @@ export default {
     },
     browser() {
       return store.state.runtime.browser;
+    },
+    loggedin() {
+      return store.getters.loggedin;
     }
   },
   watch: {
+    loggedin(n, old) {
+      // console.log("loggedin: ", n);
+    },
     streaming(n, old) {
       // console.log("now streaming: ", n);
     },
