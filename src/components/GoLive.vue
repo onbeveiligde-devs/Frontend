@@ -1,33 +1,20 @@
 <template>
   <div>
-    <h3>GO WebM Live Streaming with Firefox: {{ channel }}</h3>
-
-    <b-button @click="startVideo()" variant="success" class="input-group-append">
-      <font-awesome-icon icon="play"/>Start Video
-    </b-button>
-
-    <b-button @click="startRecording()" variant="success" class="input-group-append">
-      <font-awesome-icon icon="stream"/>Start Live
-    </b-button>
-
-    <b-button @click="Submit($event)" variant="success" class="input-group-append">
-      <font-awesome-icon icon="stream"/>Vue Submit
-    </b-button>
-
-    <b-button @click="stopVideo()" variant="danger" class="input-group-append">
-      <font-awesome-icon icon="stop"/>Stop Video
-    </b-button>
-
-    <b-button @click="stopRecording()" variant="danger" class="input-group-append">
-      <font-awesome-icon icon="stream"/>Stop Live
-    </b-button>
-
+    <h3>{{ channel }}</h3>
     <video
       ref="video"
       v-bind="localStream"
       autoplay="1"
       style="max-width: 100%; border: 1px solid;"
     ></video>
+
+    <b-button v-if="!play" @click="start($event)" variant="success" class="btn-lg btn-block">
+      <font-awesome-icon icon="play"/>
+    </b-button>
+
+    <b-button v-if="play" @click="stop()" variant="danger" class="btn-lg btn-block">
+      <font-awesome-icon icon="stop"/>
+    </b-button>
 
     <a v-show="ready()" target="_new" :href="apiurl+'watch/'+channel">{{ channel }}</a>
   </div>
@@ -58,6 +45,21 @@ function blobToBase64(blob, callback) {
   reader.readAsDataURL(blob);
 }
 
+function ab2str(buf) {
+  console.log("arrayBuffer to string");
+  return String.fromCharCode.apply(null, new Uint16Array(buf));
+}
+
+function str2ab(str) {
+  console.log("string to array buffer");
+  var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
+  var bufView = new Uint16Array(buf);
+  for (var i = 0, strLen = str.length; i < strLen; i++) {
+    bufView[i] = str.charCodeAt(i);
+  }
+  return buf;
+}
+
 import axios from "axios";
 // @ is an alias to /src
 import settings from "@/settings.json";
@@ -71,10 +73,10 @@ export default {
       return this.$refs.video;
     },
     channel() {
-      return store.state.runetime.channel; 
+      return store.getters.channel;
     },
     apiurl() {
-      return settings.APIURL; 
+      return settings.APIURL;
     }
   },
   watch: {
@@ -84,6 +86,7 @@ export default {
   },
   data() {
     return {
+      play: false,
       localStream: null,
       recorder: null,
       blobUrl: null,
@@ -91,11 +94,34 @@ export default {
       intervalMiliSec: store.state.stream.intervalSec * 1000
     };
   },
+  mounted: function() {
+    console.log("start video");
+    navigator.mediaDevices
+      .getUserMedia({
+        video: {
+          optional: [
+            { minWidth: 320 },
+            { minWidth: 640 },
+            { minWidth: 1024 },
+            { minWidth: 1280 },
+            { minWidth: 1920 },
+            { minWidth: 2560 }
+          ]
+        },
+        audio: true
+      })
+      .then(stream => {
+        this.localStream = stream;
+        this.localVideo.srcObject = stream;
+        this.localVideo.volume = 0;
+      });
+  },
   methods: {
     ready() {
       return store.state.stream.postIndex >= 1;
     },
-    Submit() {
+    start() {
+      this.play = true;
       if (!this.localStream) {
         console.error("no stream");
         return;
@@ -109,9 +135,9 @@ export default {
       this.recorder.ondataavailable = function(event) {
         console.log("new event", event);
 
-        console.log('postIndex', store.state.stream.postIndex);
-        
-        console.log('start playback type', event.data.type);
+        console.log("postIndex", store.state.stream.postIndex);
+
+        console.log("start playback type", event.data.type);
 
         var videoBlob = new Blob([event.data], { type: event.data.type });
         console.log("Blob size=" + videoBlob.size);
@@ -124,7 +150,10 @@ export default {
           let data = new FormData();
 
           data.append("blob_base64", base64);
-          data.append("blob_name", "video_" + store.state.stream.postIndex + ".webm");
+          data.append(
+            "blob_name",
+            "video_" + store.state.stream.postIndex + ".webm"
+          );
           data.append("blob_index", store.state.stream.postIndex);
           data.append("blob_sec", store.state.stream.postSec);
 
@@ -138,7 +167,7 @@ export default {
             .catch(error => {
               console.log("error", error);
             });
-          store.commit('postIndex');
+          store.commit("postIndex");
         });
       };
 
@@ -146,61 +175,12 @@ export default {
       console.log("start recording");
     },
 
-    stopRecording() {
+    stop() {
       if (this.recorder) {
         this.recorder.stop();
         console.log("stop recording");
+        this.play = false;
       }
-    },
-
-    // Request the usermedia
-    startVideo() {
-      console.log("start video");
-      navigator.mediaDevices
-        .getUserMedia({
-          video: {
-            optional: [
-              { minWidth: 320 },
-              { minWidth: 640 },
-              { minWidth: 1024 },
-              { minWidth: 1280 },
-              { minWidth: 1920 },
-              { minWidth: 2560 }
-            ]
-          },
-          audio: true
-        })
-        .then(stream => {
-          this.localStream = stream;
-          this.localVideo.srcObject = stream;
-          this.localVideo.volume = 0;
-        });
-    },
-
-    stopVideo() {
-      console.log("stop video");
-      if (this.localStream) {
-        this.localVideo.pause();
-        this.localVideo.srcDoc = "";
-
-        this.localStream.stop();
-        this.localStream = null;
-      }
-    },
-
-    ab2str(buf) {
-      console.log("arrayBuffer to string");
-      return String.fromCharCode.apply(null, new Uint16Array(buf));
-    },
-
-    str2ab(str) {
-      console.log("string to array buffer");
-      var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
-      var bufView = new Uint16Array(buf);
-      for (var i = 0, strLen = str.length; i < strLen; i++) {
-        bufView[i] = str.charCodeAt(i);
-      }
-      return buf;
     }
   }
 };

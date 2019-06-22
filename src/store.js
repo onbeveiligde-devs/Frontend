@@ -26,6 +26,12 @@ export default new Vuex.Store({
       postSec: 0
     }
   },
+  getters: {
+    channel: state => {
+      console.log('get channel', state.runtime.channel);
+      return state.runtime.channel;
+    }
+  },
   mutations: {
     publicKey(state, key) {
       state.key.public = key;

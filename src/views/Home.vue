@@ -1,13 +1,16 @@
 <template>
   <b-row>
-    <b-col lg="4">
+    <b-col lg="3">
       <b-list-group v-for="user of users">
         <User :user="user"></User>
       </b-list-group>
     </b-col>
-    <b-col lg="6">
+    <b-col lg="5">
       <Error></Error>
       <Chat></Chat>
+    </b-col>
+    <b-col lg="4">
+      <GoLive></GoLive>
     </b-col>
   </b-row>
 </template>
@@ -19,13 +22,15 @@ import settings from "@/settings.json";
 import User from "@/components/User.vue";
 import Chat from "@/components/Chat.vue";
 import Error from "@/components/Error.vue";
+import GoLive from "@/components/GoLive.vue";
 
 export default {
   name: "home",
   components: {
     Chat,
     Error,
-    User
+    User,
+    GoLive
   },
   data() {
     return {

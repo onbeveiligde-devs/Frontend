@@ -1,11 +1,7 @@
 <template>
   <div>
     <b-input-group>
-      <input type="text" v-model="channelName" placeholder="channelname">
-
-      <b-button @click="goWatch()" variant="success" class="input-group-append">
-        <font-awesome-icon icon="play"/>Watch
-      </b-button>
+      <input type="text" v-model="channel" placeholder="channelname">
 
       <b-button @click="goLive()" variant="primary" class="input-group-append">
         <font-awesome-icon icon="stream"/>Go Live
@@ -26,10 +22,15 @@ export default {
   components: {
     GoLive
   },
-  data() {
-    return {
-      channelName: 'mychannel'
-    };
+  computed: {
+    channel() {
+      return store.state.runtime.channel; 
+    }
+  },
+  watch: {
+    channel(n, old) {
+      console.log("new channel: ", n);
+    }
   },
   methods: {
     goWatch() {
