@@ -11,6 +11,7 @@
     </b-col>
     <b-col lg="4">
       <GoLive></GoLive>
+      <Login></Login>
     </b-col>
   </b-row>
 </template>
@@ -20,6 +21,7 @@ import axios from "axios";
 // @ is an alias to /src
 import settings from "@/settings.json";
 import User from "@/components/setup/User.vue";
+import Login from "@/components/setup/Login.vue";
 import Chat from "@/components/chat/Chat.vue";
 import Error from "@/components/chat/Error.vue";
 import GoLive from "@/components/stream/GoLive.vue";
@@ -30,6 +32,7 @@ export default {
     Chat,
     Error,
     User,
+    Login,
     GoLive
   },
   data() {

@@ -1,19 +1,12 @@
 <template>
   <form @submit.prevent="send">
     <b-form-group>
-      <div class="form-group">
-        <div class="input-group mb-3">
-          <!-- <b-button @click="sendMessage" variant="outline-danger" class="input-group-prepend">
-            <font-awesome-icon icon="chevron-left"/>
-          </b-button> -->
+      <div class="input-group mb-3">
+        <input type="text" id="say" class="form-control" v-model="message">
 
-          <!-- <textarea-autosize id="say" class="form-control" v-model="message"></textarea-autosize> -->
-          <input type="text" id="say" class="form-control" v-model="message" />
-
-          <b-button @click="sendMessage" variant="success" class="input-group-append">
-            <font-awesome-icon icon="chevron-right"/>
-          </b-button>
-        </div>
+        <b-button @click="sendMessage" variant="success" class="input-group-append">
+          <font-awesome-icon icon="chevron-right"/>
+        </b-button>
       </div>
     </b-form-group>
   </form>
@@ -49,7 +42,7 @@ export default {
         author: store.state.user._id,
         subject: this.subject,
         timestamp: Date.now(),
-        sign: this.message + '-' + this.timestamp
+        sign: this.message + "-" + this.timestamp
       });
     }
   }

@@ -18,7 +18,11 @@ import {
   faCommentDots,
   faPlay,
   faStream,
-  faStop
+  faStop,
+  faKey,
+  faUserLock,
+  faSignInAlt,
+  faLongArrowAltRight
 } from '@fortawesome/free-solid-svg-icons'
 import {
   FontAwesomeIcon
@@ -35,7 +39,11 @@ library.add(
   faCommentDots,
   faPlay,
   faStream,
-  faStop
+  faStop,
+  faKey,
+  faUserLock,
+  faSignInAlt,
+  faLongArrowAltRight
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
