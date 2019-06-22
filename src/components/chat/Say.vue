@@ -1,14 +1,13 @@
 <template>
   <form @submit.prevent="send">
     <b-form-group>
-      <div v-if="loggedin" class="input-group mb-3">
+      <div class="input-group mb-3">
         <input type="text" id="say" class="form-control" v-model="message">
 
         <b-button @click="sendMessage" variant="success" class="input-group-append">
           <font-awesome-icon icon="chevron-right"/>
         </b-button>
       </div>
-      <Login v-if="!loggedin"></Login>
     </b-form-group>
   </form>
 </template>
