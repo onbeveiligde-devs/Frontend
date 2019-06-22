@@ -90,7 +90,7 @@ export default {
     return {
       step: 0,
       socket: io(settings.APIDOMAIN),
-      name: "",
+      name: "nick",
       loading: false,
       status: ""
     };
@@ -137,6 +137,20 @@ export default {
         publicKey: this.key.public
       };
       console.log("login", data);
+    },
+    sign() {
+      return new Promise((res, rej) => {
+        WebCrypto.subtle
+          .sign(
+            {
+              name: "RSASSA-PKCS1-v1_5"
+            },
+            this.key.private,
+            this.name
+          )
+          .then(signature => res(signature))
+          .catch(err => rej(err));
+      });
     },
     next() {
       this.step++;
