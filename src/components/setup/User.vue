@@ -22,7 +22,7 @@ import store from "@/store";
 export default {
   name: "message",
   props: {
-    user: {}
+    user: Object
   },
   data() {
     return {

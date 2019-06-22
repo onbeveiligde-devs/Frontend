@@ -1,10 +1,10 @@
 <template>
-  <b-container>
+  <div>
     <div id="nav">
       <router-link to="/">Home</router-link>
     </div>
     <router-view/>
-  </b-container>
+  </div>
 </template>
 
 <style lang="scss" scoped>

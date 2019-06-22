@@ -2,6 +2,11 @@
   <div>
     <Say :subject="subject"></Say>
     <ul>
+      <li v-if="loading">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </li>
       <li v-for="o of messages">
         <Message :author="o.author" :msg="o.message" :sign="o.sign" :timestamp="o.timestamp"/>
       </li>
