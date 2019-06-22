@@ -1,5 +1,3 @@
-const crypto = require("@trust/webcrypto");
-
 let privateKey;
 let publicKey;
 let exportedPrivateKey;
