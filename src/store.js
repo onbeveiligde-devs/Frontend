@@ -18,7 +18,8 @@ export default new Vuex.Store({
     runtime: {
       subject: '5d0b352796d70b4a80cad5e8',
       channel: '5d0b352796d70b4a80cad5e8',
-      streaming: []
+      streaming: [],
+      browser: ''
     },
     stream: {
       postIndex: 0,
@@ -74,6 +75,12 @@ export default new Vuex.Store({
         state.runtime.streaming.splice(index, 1);
       }
       console.log('streaming', state.runtime.streaming);
+    },
+    browser(state, browser) {
+      console.log('browser', browser);
+      if (browser != 'firefox') {
+        state.runtime.browser = browser;
+      }
     }
   },
   actions: {

@@ -53,6 +53,15 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(VueTextareaAutosize)
 
+const {
+  detect
+} = require('detect-browser');
+const browser = detect();
+if (browser) {
+  console.log(browser.name);
+  store.commit('browser', browser.name);
+}
+
 new Vue({
   router,
   store,

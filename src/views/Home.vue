@@ -16,6 +16,11 @@
       </b-col>
 
       <b-col lg="5">
+        <b-alert
+          v-model="browser"
+          variant="danger"
+          dismissible
+        >The {{ browser }} browser is not supported. Please, use Firefox instead.</b-alert>
         <Error></Error>
         <Chat></Chat>
       </b-col>
@@ -28,7 +33,7 @@
 
     <b-row>
       <b-col v-for="o in streaming">
-        <Watch :channel="o._id" uuid=""></Watch>
+        <Watch :channel="o._id" uuid></Watch>
       </b-col>
     </b-row>
   </b-container>
@@ -66,11 +71,17 @@ export default {
   computed: {
     streaming() {
       return store.state.runtime.streaming;
+    },
+    browser() {
+      return store.state.runtime.browser;
     }
   },
   watch: {
     streaming(n, old) {
       // console.log("now streaming: ", n);
+    },
+    browser(n, old) {
+      console.log("now browser: ", n);
     }
   },
   mounted: function() {
