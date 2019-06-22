@@ -104,8 +104,8 @@ export default {
     register() {
       let data = {
         name: this.name,
-        privateLey: this.key.private,
-        publicKey: this.key.public
+        publicKey: this.key.public,
+        signature: this.name
       };
       console.log("register", data);
 
@@ -113,19 +113,19 @@ export default {
         this.loading = true;
         this.status = "register";
         axios
-          .get(settings.APIURL + "user")
+          .post(settings.APIURL + "user/register", data)
           .then(res => {
-            console.log("users result", res.data.users);
+            console.log("register result", res.data.users);
             this.loading = false;
             if (res.status == 200) {
               this.users = res.data.users;
-              console.log("received users", res.data);
+              console.log("received register", res.data);
             } else {
-              console.log("user status", res.status);
+              console.log("register status", res.status);
             }
           })
           .catch(e => {
-            console.log("user error:", e);
+            console.log("register error:", e);
             this.loading = false;
           });
       }
