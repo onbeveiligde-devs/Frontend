@@ -33,7 +33,7 @@
       </b-col>
 
       <b-col v-if="!loggedin" lg="4">
-        <h3>Login</h3>
+        <h3>Login or register</h3>
         <Login></Login>
       </b-col>
     </b-row>
