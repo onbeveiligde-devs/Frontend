@@ -14,8 +14,8 @@ import io from "socket.io-client";
 import axios from "axios";
 // @ is an alias to /src
 import settings from "@/settings.json";
-import Message from "@/components/Message.vue";
-import Say from "@/components/Say.vue";
+import Message from "./Message.vue";
+import Say from "./Say.vue";
 import store from "@/store";
 
 export default {

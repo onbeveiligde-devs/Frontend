@@ -19,10 +19,10 @@
 import axios from "axios";
 // @ is an alias to /src
 import settings from "@/settings.json";
-import User from "@/components/User.vue";
-import Chat from "@/components/Chat.vue";
-import Error from "@/components/Error.vue";
-import GoLive from "@/components/GoLive.vue";
+import User from "@/components/setup/User.vue";
+import Chat from "@/components/chat/Chat.vue";
+import Error from "@/components/chat/Error.vue";
+import GoLive from "@/components/stream/GoLive.vue";
 
 export default {
   name: "home",
