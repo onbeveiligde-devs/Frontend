@@ -6,7 +6,9 @@
         <font-awesome-icon class="text-muted" icon="long-arrow-alt-right"/>&emsp;
         <font-awesome-icon :class="{ 'text-muted' : step != 1}" icon="user-lock"/>&emsp;
         <font-awesome-icon class="text-muted" icon="long-arrow-alt-right"/>&emsp;
-        <font-awesome-icon :class="{ 'text-muted' : step != 2}" icon="sign-in-alt"/>
+        <font-awesome-icon :class="{ 'text-muted' : step != 2}" icon="user"/>&emsp;
+        <font-awesome-icon class="text-muted" icon="long-arrow-alt-right"/>&emsp;
+        <font-awesome-icon :class="{ 'text-muted' : step != 3}" icon="sign-in-alt"/>
       </p>
 
       <b-input-group>
@@ -22,7 +24,6 @@
         <div v-if="step == 0">
           <textarea-autosize
             placeholder="paste public key here"
-            id="say"
             class="form-control"
             v-model="key.public"
           ></textarea-autosize>
@@ -31,19 +32,27 @@
         <div v-if="step == 1">
           <textarea-autosize
             placeholder="paste private key here"
-            id="say"
             class="form-control"
             v-model="key.private"
           ></textarea-autosize>
         </div>
 
         <div v-if="step == 2">
+          <input
+            type="text"
+            placeholder="What is your name?"
+            class="form-control"
+            v-model="name"
+          />
+        </div>
+
+        <div v-if="step == 3">
           <div class="spinner-border text-primary" role="status">
             <span class="sr-only">Loading...</span>
           </div>
         </div>
 
-        <b-button v-if="step < 2" @click="next()" variant="success" class="input-group-append">
+        <b-button v-if="step < 3" @click="next()" variant="success" class="input-group-append">
           <font-awesome-icon icon="chevron-right"/>
         </b-button>
       </b-input-group>
@@ -82,7 +91,8 @@ export default {
   data() {
     return {
       step: 0,
-      socket: io(settings.APIDOMAIN)
+      socket: io(settings.APIDOMAIN),
+      name: ''
     };
   },
   mounted: function() {
@@ -93,8 +103,8 @@ export default {
   methods: {
     next() {
       this.step++;
-      if (this.step > 3) {
-        store.commit("");
+      if (this.step > 4) {
+        // store.commit("user", data);
       }
     },
     back() {

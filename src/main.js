@@ -23,7 +23,8 @@ import {
   faKey,
   faUserLock,
   faSignInAlt,
-  faLongArrowAltRight
+  faLongArrowAltRight,
+  faUser
 } from '@fortawesome/free-solid-svg-icons'
 import {
   FontAwesomeIcon
@@ -45,7 +46,8 @@ library.add(
   faKey,
   faUserLock,
   faSignInAlt,
-  faLongArrowAltRight
+  faLongArrowAltRight,
+  faUser
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
