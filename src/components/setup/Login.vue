@@ -42,10 +42,13 @@
         </div>
 
         <div v-if="step == 3">
+          <input type="text" :placeholder="status+'...'" class="form-control" disabled>
+        </div>
+        <b-button v-if="step == 3" variant="outline-light" class="input-group-append">
           <div class="spinner-border text-primary" role="status">
             <span class="sr-only">Loading...</span>
           </div>
-        </div>
+        </b-button>
 
         <b-button v-if="step < 3" @click="next()" variant="success" class="input-group-append">
           <font-awesome-icon icon="chevron-right"/>
@@ -87,12 +90,14 @@ export default {
     return {
       step: 0,
       socket: io(settings.APIDOMAIN),
-      name: ""
+      name: "",
+      loading: false,
+      status: ""
     };
   },
   mounted: function() {
     if (store.state.key.public == null || store.state.key.private == null) {
-      console.log("create new keys");
+      console.log("create new keys...");
     }
   },
   methods: {
@@ -103,6 +108,27 @@ export default {
         publicKey: this.key.public
       };
       console.log("register", data);
+
+      if (!this.loading) {
+        this.loading = true;
+        this.status = "register";
+        axios
+          .get(settings.APIURL + "user")
+          .then(res => {
+            console.log("users result", res.data.users);
+            this.loading = false;
+            if (res.status == 200) {
+              this.users = res.data.users;
+              console.log("received users", res.data);
+            } else {
+              console.log("user status", res.status);
+            }
+          })
+          .catch(e => {
+            console.log("user error:", e);
+            this.loading = false;
+          });
+      }
     },
     login() {
       let data = {
