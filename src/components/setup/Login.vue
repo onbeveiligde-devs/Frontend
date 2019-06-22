@@ -74,14 +74,8 @@ export default {
     };
   },
   mounted: function() {
-    const jwkPrivateKey = JSON.parse(
-      atob(localStorage.getItem("exportedPrivateKey"))
-    );
-    const jwkPublicKey = JSON.parse(
-      atob(localStorage.getItem("exportedPublicKey"))
-    );
     if (jwkPrivateKey == null || jwkPublicKey == null) {
-      console.log('create new keys');
+      console.log("create new keys");
     }
   },
   methods: {
