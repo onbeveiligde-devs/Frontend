@@ -16,11 +16,14 @@
       </b-col>
 
       <b-col lg="5">
-        <b-alert
+        <div v-if="browser">
+          <b-alert
           v-model="browser"
           variant="danger"
           dismissible
         >The {{ browser }} browser is not supported. Please, use Firefox instead.</b-alert>
+        </div>
+        
         <Error></Error>
         <Chat></Chat>
       </b-col>
