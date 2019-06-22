@@ -71,7 +71,7 @@ export default {
       return this.$refs.video;
     },
     channel() {
-      return store.state.channel; 
+      return store.state.runetime.channel; 
     },
     apiurl() {
       return settings.APIURL; 
@@ -88,12 +88,12 @@ export default {
       recorder: null,
       blobUrl: null,
       blobUrls: [],
-      intervalMiliSec: store.state.intervalSec * 1000
+      intervalMiliSec: store.state.stream.intervalSec * 1000
     };
   },
   methods: {
     ready() {
-      return store.state.postIndex >= 1;
+      return store.state.stream.postIndex >= 1;
     },
     Submit() {
       if (!this.localStream) {
@@ -109,7 +109,7 @@ export default {
       this.recorder.ondataavailable = function(event) {
         console.log("new event", event);
 
-        console.log('postIndex', store.state.postIndex);
+        console.log('postIndex', store.state.stream.postIndex);
         
         console.log('start playback type', event.data.type);
 
@@ -120,13 +120,13 @@ export default {
         blobToBase64(videoBlob, function(base64) {
           console.log("de base64 van de blob is", base64);
 
-          let URL = settings.APIURL + "upload/" + store.state.channel;
+          let URL = settings.APIURL + "upload/" + store.state.runtime.channel;
           let data = new FormData();
 
           data.append("blob_base64", base64);
-          data.append("blob_name", "video_" + store.state.postIndex + ".webm");
-          data.append("blob_index", store.state.postIndex);
-          data.append("blob_sec", store.state.postSec);
+          data.append("blob_name", "video_" + store.state.stream.postIndex + ".webm");
+          data.append("blob_index", store.state.stream.postIndex);
+          data.append("blob_sec", store.state.stream.postSec);
 
           console.log(URL, data);
 

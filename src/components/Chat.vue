@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     subject() {
-      return store.state.subject;
+      return store.state.runtime.subject;
     }
   },
   watch: {
