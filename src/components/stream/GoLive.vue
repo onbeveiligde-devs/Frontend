@@ -63,7 +63,7 @@ function str2ab(str) {
 import axios from "axios";
 // @ is an alias to /src
 import settings from "@/settings.json";
-import crypto from "@/crypto";
+
 import store from "@/store";
 
 export default {

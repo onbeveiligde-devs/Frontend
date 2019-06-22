@@ -1,7 +1,6 @@
 <template>
   <form @submit.prevent="send">
     <b-form-group>
-      <h3>Login</h3>
       <p>
         <font-awesome-icon :class="{ 'text-muted' : step != 0}" icon="key"/>&emsp;
         <font-awesome-icon class="text-muted" icon="long-arrow-alt-right"/>&emsp;
@@ -10,7 +9,7 @@
         <font-awesome-icon :class="{ 'text-muted' : step != 2}" icon="sign-in-alt"/>
       </p>
 
-      <div class="input-group mb-3">
+      <b-input-group>
         <b-button
           v-if="step > 0"
           @click="back()"
@@ -47,7 +46,7 @@
         <b-button v-if="step < 2" @click="next()" variant="success" class="input-group-append">
           <font-awesome-icon icon="chevron-right"/>
         </b-button>
-      </div>
+      </b-input-group>
     </b-form-group>
   </form>
 </template>
@@ -67,13 +66,30 @@ export default {
   data() {
     return {
       step: 0,
-      message: "",
+      key: {
+        public: null,
+        private: null
+      },
       socket: io(settings.APIDOMAIN)
     };
+  },
+  mounted: function() {
+    const jwkPrivateKey = JSON.parse(
+      atob(localStorage.getItem("exportedPrivateKey"))
+    );
+    const jwkPublicKey = JSON.parse(
+      atob(localStorage.getItem("exportedPublicKey"))
+    );
+    if (jwkPrivateKey == null || jwkPublicKey == null) {
+      console.log('create new keys');
+    }
   },
   methods: {
     next() {
       this.step++;
+      if (this.step > 3) {
+        store.commit("");
+      }
     },
     back() {
       this.step--;

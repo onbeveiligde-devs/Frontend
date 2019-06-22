@@ -12,8 +12,8 @@ export default new Vuex.Store({
       balance: 0
     },
     key: {
-      public: '',
-      private: ''
+      public: null,
+      private: null
     },
     runtime: {
       subject: '5d0b352796d70b4a80cad5e8',
@@ -31,14 +31,12 @@ export default new Vuex.Store({
       console.log('get channel', state.runtime.channel);
       return state.runtime.channel;
     },
-    privateKey: state => {
-      return JSON.parse(atob(localStorage.getItem(("exportedPrivateKey"))))
-    },
-    publicKey: state => {
-      return JSON.parse(atob(localStorage.getItem(("exportedPublicKey"))))
-    },
     loggedin: state => {
-      return state.key.public !== null && state.key.private !== null
+      return state.key.public != null &&
+        state.key.private != null &&
+        state.key.public != '' &&
+        state.key.private != '' &&
+        state.user != null;
     }
   },
   mutations: {
