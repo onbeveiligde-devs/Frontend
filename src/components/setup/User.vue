@@ -6,7 +6,8 @@
   >
     <font-awesome-icon icon="comment-dots"/>
     {{ user.name }}
-    <b-badge variant="primary" class="badge-pill">
+    
+    <b-badge v-if="streaming.includes(user._id)" variant="primary" class="badge-pill">
       <font-awesome-icon icon="stream"/>
     </b-badge>
   </b-list-group-item>
@@ -46,8 +47,10 @@ export default {
   },
   mounted: function() {
     this.socket.on("ONLINE", data => {
-      console.log("online", data);
-      store.commit("streaming", data.id);
+      store.commit("streaming", data._id);
+    });
+    this.socket.on("OFFLINE", data => {
+      store.commit("streaming", data._id);
     });
   },
   methods: {

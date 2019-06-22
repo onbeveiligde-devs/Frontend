@@ -62,7 +62,10 @@ export default new Vuex.Store({
       state.runtime.channel = channel;
     },
     streaming(state, streaming) {
-      state.runtime.streaming = streaming;
+      if (!state.runtime.streaming.includes(streaming)) {
+        state.runtime.streaming.push(streaming);
+        console.log('streaming', state.runtime.streaming);
+      }
     }
   },
   actions: {
