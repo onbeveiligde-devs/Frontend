@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container fluid>
     <b-row>
       <b-col lg="3">
         <b-list-group v-if="loading">
@@ -18,12 +18,12 @@
       <b-col lg="5">
         <div v-if="browser">
           <b-alert
-          v-model="browser"
-          variant="danger"
-          dismissible
-        >The {{ browser }} browser is not supported. Please, use Firefox instead.</b-alert>
+            v-model="browser"
+            variant="danger"
+            dismissible
+          >The {{ browser }} browser is not supported. Please, use Firefox instead.</b-alert>
         </div>
-        
+
         <Error></Error>
         <Chat></Chat>
       </b-col>
@@ -34,16 +34,23 @@
       </b-col>
     </b-row>
 
-    <b-row>
-      <b-col v-for="o in streaming">
+    <div v-for="o in streaming">
+      <vue-draggable-resizable
+        :w="500"
+        :h="300"
+        @dragging="onDrag"
+        @resizing="onResize"
+        :parent="false"
+      >
         <Watch :channel="o._id" uuid></Watch>
-      </b-col>
-    </b-row>
+      </vue-draggable-resizable>
+    </div>
   </b-container>
 </template>
 
 <script>
 import axios from "axios";
+import VueDraggableResizable from "vue-draggable-resizable";
 // @ is an alias to /src
 import settings from "@/settings.json";
 import store from "@/store";
@@ -68,7 +75,11 @@ export default {
   data() {
     return {
       users: [],
-      loading: false
+      loading: false,
+      width: 0,
+      height: 0,
+      x: 0,
+      y: 0
     };
   },
   computed: {
@@ -106,6 +117,18 @@ export default {
           console.log("user error:", e);
           this.loading = false;
         });
+    }
+  },
+  methods: {
+    onResize: function(x, y, width, height) {
+      this.x = x;
+      this.y = y;
+      this.width = width;
+      this.height = height;
+    },
+    onDrag: function(x, y) {
+      this.x = x;
+      this.y = y;
     }
   }
 };

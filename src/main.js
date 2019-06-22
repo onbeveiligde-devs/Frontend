@@ -6,6 +6,7 @@ import './registerServiceWorker'
 
 import BootstrapVue from 'bootstrap-vue'
 import VueTextareaAutosize from 'vue-textarea-autosize'
+import VueDraggableResizable from 'vue-draggable-resizable'
 
 import {
   library
@@ -30,6 +31,7 @@ import {
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'vue-draggable-resizable/dist/VueDraggableResizable.css'
 
 library.add(
   faCheck,
@@ -47,6 +49,7 @@ library.add(
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('vue-draggable-resizable', VueDraggableResizable)
 
 Vue.config.productionTip = false
 
