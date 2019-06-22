@@ -37,6 +37,19 @@ export class CryptoService {
     });
   }
 
+  verify(data, privateKey): Promise<boolean> {
+    return new Promise(async (res, rej) => {
+
+      let unwrappedKey = await this.unwrapKey(privateKey);
+
+      window.crypto.subtle.sign(
+        "RSASSA-PKCS1-v1_5",
+        unwrappedKey,
+        this.util.str2ab(data))
+        .then(signature => res(this.util.ab2b64(signature)));
+    });
+  }
+
   unwrapKey(base64Key): Promise<CryptoKey> {
     return new Promise((res, rej) => {
       window.crypto.subtle.importKey(
