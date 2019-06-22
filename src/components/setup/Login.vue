@@ -193,7 +193,7 @@ export default {
             console.log("signature", ab2b64(signature));
             this.signature = ab2b64(signature);
 
-            this.register();
+            this.login();
           })
           .catch(function(err) {
             console.error(err);
@@ -201,24 +201,20 @@ export default {
       }
     },
     register() {
-      let data = {
-        name: this.name,
-        publicKey: this.key.public,
-        signature: this.signature
-      };
-      console.log("register", data);
-
       if (!this.loading) {
         this.loading = true;
         this.status = "register";
         axios
-          .post(settings.APIURL + "user/register", data)
+          .post(settings.APIURL + "user/register", {
+            name: this.name,
+            publicKey: this.key.public,
+            sign: this.signature
+          })
           .then(res => {
-            console.log("register result", res.data.users);
             this.loading = false;
             if (res.status == 200) {
-              this.users = res.data.users;
-              console.log("received register", res.data);
+              console.log("register result", res.data);
+              // ...
             } else {
               console.log("register status", res.status);
             }
@@ -226,16 +222,45 @@ export default {
           .catch(e => {
             console.log("register error:", e);
             this.loading = false;
+            this.status = "failled";
           });
       }
     },
     login() {
-      let data = {
-        name: this.name,
-        privateLey: this.key.private,
-        publicKey: this.key.public
-      };
-      console.log("login", data);
+      if (!this.loading) {
+        this.loading = true;
+        this.status = "login";
+        axios
+          .post(settings.APIURL + "user/login", {
+            name: this.name,
+            publicKey: this.key.public,
+            sign: this.signature
+          })
+          .then(res => {
+            this.loading = false;
+            if (res.status == 200) {
+              this.loading = false;
+              this.status = "";
+              console.log("login result", res.data);
+              if (res.data.success) {
+                console.log("loged in");
+              } else {
+                console.log("login failled");
+                this.register();
+              }
+              this.users = res.data.users;
+            } else {
+              console.log("login status", res.status);
+              this.loading = false;
+              this.status = "failled";
+            }
+          })
+          .catch(e => {
+            console.log("login error:", e);
+            this.loading = false;
+            this.status = "failled";
+          });
+      }
     }
   }
 };
