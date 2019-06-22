@@ -30,6 +30,15 @@ export default new Vuex.Store({
     channel: state => {
       console.log('get channel', state.runtime.channel);
       return state.runtime.channel;
+    },
+    privateKey: state => {
+      return JSON.parse(atob(localStorage.getItem(("exportedPrivateKey"))))
+    },
+    publicKey: state => {
+      return JSON.parse(atob(localStorage.getItem(("exportedPublicKey"))))
+    },
+    loggedin: state => {
+      return state.key.public !== null && state.key.private !== null
     }
   },
   mutations: {
