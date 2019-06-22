@@ -5,7 +5,8 @@ export class User {
     public name: string, 
     public online: boolean, 
     public balance: number,
-    public publicKey : string
+    public publicKey : string,
+    public uuid : string
     ) {
 
   }

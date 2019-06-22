@@ -20,6 +20,7 @@ import { UserService } from './services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
+import { SafePipe } from './pipes/safe.pipe';
 
 
 
@@ -34,7 +35,8 @@ import { CommonModule } from '@angular/common';
     DiscoveryComponent,
     NavbarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
