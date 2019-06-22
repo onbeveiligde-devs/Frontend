@@ -25,9 +25,9 @@ export class DiscoveryComponent implements OnInit {
     //TODO: Implement service to retrieve all users
 
     this.users = await this.userService.fetchAll();
-    this.onlineUsers=[];
+    this.onlineUsers = [];
 
-    this.onlineUsers = this.users.filter(x=> x.online)
+    //this.onlineUsers = this.users.filter(x=> x.online)
 
 
   }

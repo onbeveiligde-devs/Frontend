@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import {promise} from 'selenium-webdriver';
-import Promise = promise.Promise;
 import {UtilService} from './util.service';
 
 @Injectable({
@@ -22,8 +20,7 @@ export class CryptoService {
         true, //whether the key is extractable (i.e. can be used in exportKey)
         ["sign", "verify"] //can be any combination of "sign" and "verify"
       )
-        .then(kp => res(kp))
-        .catch(err => rej(err));
+        .then(kp => res(kp), err => rej(err))
     });
   }
 
@@ -33,26 +30,24 @@ export class CryptoService {
       let unwrappedKey = await this.unwrapKey(privateKey);
 
       window.crypto.subtle.sign(
-        {
-          name: "RSASSA-PKCS1-v1_5"
-        },
+        "RSASSA-PKCS1-v1_5",
         unwrappedKey,
         this.util.str2ab(data))
-        .then(signature => res(signature))
+        .then(signature => res(this.util.ab2b64(signature)));
     });
   }
 
   unwrapKey(base64Key): Promise<CryptoKey> {
     return new Promise((res, rej) => {
       window.crypto.subtle.importKey(
-        "jwk", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
+        "jwk",
          JSON.parse(atob(base64Key)),
-        {   //these are the algorithm options
+        {
           name: "RSASSA-PKCS1-v1_5",
-          hash: {name: "SHA-256"}, //can be "SHA-1", "SHA-256", "SHA-384", or "SHA-512"
+          hash: {name: "SHA-256"},
         },
-        true, //whether the key is extractable (i.e. can be used in exportKey)
-        ["verify"] //"verify" for public key import, "sign" for private key imports
+        true,
+        ["verify"]
       );
     })
   }

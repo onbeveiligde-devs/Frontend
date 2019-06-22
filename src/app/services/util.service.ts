@@ -29,7 +29,7 @@ export class UtilService {
   }
 
 
-  ab2b64(arraybuffer) {
+  ab2b64(arraybuffer): string {
     var bytes = new Uint8Array(arraybuffer),
       i, len = bytes.length, base64 = '';
 
@@ -47,9 +47,9 @@ export class UtilService {
     }
 
     return base64;
-  };
+  }
 
-  b642ab(base64) {
+  b642ab(base64): ArrayBuffer {
     var bufferLength = base64.length * 0.75,
       len = base64.length, i, p = 0,
       encoded1, encoded2, encoded3, encoded4;
