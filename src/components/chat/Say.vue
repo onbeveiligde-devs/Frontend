@@ -2,7 +2,7 @@
   <form @submit.prevent="send">
     <b-form-group>
       <div class="input-group mb-3">
-        <input type="text" id="say" class="form-control" v-model="message">
+        <input type="text" id="say" class="form-control" placeholder="Say something..." v-model="message">
 
         <b-button @click="sendMessage" variant="success" class="input-group-append">
           <font-awesome-icon icon="chevron-right"/>
