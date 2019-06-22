@@ -1,4 +1,4 @@
 {
-    "APIDOMAIN": "localhost:3000",
-    "APIURL": "http://localhost:3000/"
+    "APIDOMAIN": "nicks.rocks:3000",
+    "APIURL": "http://nicks.rocks:3000/"
 }
