@@ -24,7 +24,7 @@
             placeholder="paste public key here"
             id="say"
             class="form-control"
-            v-model="message"
+            v-model="key.public"
           ></textarea-autosize>
         </div>
 
@@ -33,7 +33,7 @@
             placeholder="paste private key here"
             id="say"
             class="form-control"
-            v-model="message"
+            v-model="key.private"
           ></textarea-autosize>
         </div>
 
@@ -57,6 +57,7 @@ import io from "socket.io-client";
 // @ is an alias to /src
 import settings from "@/settings.json";
 import store from "@/store";
+import crypto from "@/modules/create.crypto";
 
 export default {
   name: "say",
