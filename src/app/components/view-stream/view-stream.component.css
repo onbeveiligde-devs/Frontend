@@ -14,7 +14,8 @@
   
   .example-box {
     padding: 20px 10px;
-    height: initial;
+    height: 100px;
+    width:200px;
     border-right: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
@@ -27,8 +28,7 @@
     font-size: 14px;
     flex-grow: 1;
     flex-basis: 0;
-    width: -webkit-fill-available;
-    height: -webkit-fill-available;
+    
   }
   
   .cdk-drag-preview {
@@ -59,8 +59,8 @@
   }
 
   .div.example-box.cdk-drag.ng-star-inserted{
-    width: -webkit-fill-available;
-    height:  auto;
+    width: 200px;
+    height:  100px;
     touch-action: none;
     -webkit-user-drag: none;
     -webkit-tap-highlight-color: transparent;
