@@ -57,7 +57,6 @@ import io from "socket.io-client";
 // @ is an alias to /src
 import settings from "@/settings.json";
 import store from "@/store";
-import crypto from "@/modules/create.crypto";
 
 export default {
   name: "say",
