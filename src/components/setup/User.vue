@@ -1,13 +1,21 @@
 <template>
-  <b-list-group-item @click="openChat(user._id)" class="list-group-item-action items-center">
+  <b-list-group-item
+    @click="openChat(user._id)"
+    :class="{'active' : user._id == subject}"
+    class="list-group-item-action items-center"
+  >
     <font-awesome-icon icon="comment-dots"/>
     {{ user.name }}
-    <b-badge variant="primary" class="badge-pill">{{ user.balance }}</b-badge>
+    <b-badge variant="primary" class="badge-pill">
+      <font-awesome-icon icon="stream"/>
+    </b-badge>
   </b-list-group-item>
 </template>
 
 <script>
+import io from "socket.io-client";
 // @ is an alias to /src
+import settings from "@/settings.json";
 import store from "@/store";
 
 export default {
@@ -15,9 +23,36 @@ export default {
   props: {
     user: {}
   },
+  data() {
+    return {
+      socket: io(settings.APIDOMAIN)
+    };
+  },
+  computed: {
+    subject() {
+      return store.state.runtime.subject;
+    },
+    streaming() {
+      return store.state.runtime.streaming;
+    }
+  },
+  watch: {
+    subject(n, old) {
+      console.log("new subject: ", n);
+    },
+    streaming(n, old) {
+      console.log("now streaming: ", n);
+    }
+  },
+  mounted: function() {
+    this.socket.on("ONLINE", data => {
+      console.log("online", data);
+      store.commit("streaming", data.id);
+    });
+  },
   methods: {
     openChat(id) {
-      store.commit('subject', id);
+      store.commit("subject", id);
     }
   }
 };

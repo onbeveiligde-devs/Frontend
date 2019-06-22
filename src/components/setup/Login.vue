@@ -74,7 +74,7 @@ export default {
     };
   },
   mounted: function() {
-    if (jwkPrivateKey == null || jwkPublicKey == null) {
+    if (store.state.key.public == null || store.state.key.private == null) {
       console.log("create new keys");
     }
   },
