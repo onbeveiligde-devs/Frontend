@@ -61,11 +61,19 @@ export default new Vuex.Store({
     channel(state, channel) {
       state.runtime.channel = channel;
     },
-    streaming(state, streaming) {
+    online(state, streaming) {
       if (!state.runtime.streaming.includes(streaming)) {
         state.runtime.streaming.push(streaming);
         console.log('streaming', state.runtime.streaming);
       }
+    },
+    offline(state, streaming) {
+      let array = state.runtime.streaming;
+      var index = array.indexOf(streaming);
+      if (index !== -1) {
+        state.runtime.streaming.splice(index, 1);
+      }
+      console.log('streaming', state.runtime.streaming);
     }
   },
   actions: {

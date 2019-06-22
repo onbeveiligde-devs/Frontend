@@ -8,11 +8,11 @@
       style="max-width: 100%; border: 1px solid;"
     ></video>
 
-    <b-button v-if="!play" @click="hi($event)" variant="success" class="btn-lg btn-block">
+    <b-button v-if="!play" @click="start($event)" variant="success" class="btn-lg btn-block">
       <font-awesome-icon icon="play"/>
     </b-button>
 
-    <b-button v-if="play" @click="bye()" variant="danger" class="btn-lg btn-block">
+    <b-button v-if="play" @click="stop()" variant="danger" class="btn-lg btn-block">
       <font-awesome-icon icon="stop"/>
     </b-button>
 
@@ -122,22 +122,6 @@ export default {
     ready() {
       return store.state.stream.postIndex >= 1;
     },
-    hi() {
-      let data = {
-        _id: store.state.user._id,
-        sign: store.state.user._id + "-" + this.timestamp
-      };
-      console.log('say hi to server', data);
-      this.socket.emit('HITOSERV', data);
-    },
-    bye() {
-      let data = {
-        _id: store.state.user._id,
-        sign: store.state.user._id + "-" + this.timestamp
-      };
-      console.log('say bye to server', data);
-      this.socket.emit('BYTOSERV', data);
-    },
     start() {
       this.play = true;
       if (!this.localStream) {
@@ -191,6 +175,13 @@ export default {
 
       this.recorder.start(this.intervalMiliSec);
       console.log("start recording");
+
+      let data = {
+        _id: store.state.user._id,
+        sign: store.state.user._id + "-" + this.timestamp
+      };
+      console.log("say hi to server", data);
+      this.socket.emit("HITOSERV", data);
     },
 
     stop() {
@@ -198,6 +189,13 @@ export default {
         this.recorder.stop();
         console.log("stop recording");
         this.play = false;
+
+        let data = {
+          _id: store.state.user._id,
+          sign: store.state.user._id + "-" + this.timestamp
+        };
+        console.log("say bye to server", data);
+        this.socket.emit("BYETOSERV", data);
       }
     }
   }

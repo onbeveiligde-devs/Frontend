@@ -47,10 +47,10 @@ export default {
   },
   mounted: function() {
     this.socket.on("ONLINE", data => {
-      store.commit("streaming", data._id);
+      store.commit("online", data._id);
     });
     this.socket.on("OFFLINE", data => {
-      store.commit("streaming", data._id);
+      store.commit("offline", data._id);
     });
   },
   methods: {

@@ -1,11 +1,11 @@
 <template>
   <div>
+    <Say :subject="subject"></Say>
     <ul>
       <li v-for="o of messages">
         <Message :author="o.author" :msg="o.message" :sign="o.sign" :timestamp="o.timestamp"/>
       </li>
     </ul>
-    <Say :subject="subject"></Say>
   </div>
 </template>
 
