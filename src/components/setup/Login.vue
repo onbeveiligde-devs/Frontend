@@ -38,12 +38,7 @@
         </div>
 
         <div v-if="step == 2">
-          <input
-            type="text"
-            placeholder="What is your name?"
-            class="form-control"
-            v-model="name"
-          />
+          <input type="text" placeholder="What is your name?" class="form-control" v-model="name">
         </div>
 
         <div v-if="step == 3">
@@ -92,7 +87,7 @@ export default {
     return {
       step: 0,
       socket: io(settings.APIDOMAIN),
-      name: ''
+      name: ""
     };
   },
   mounted: function() {
@@ -101,10 +96,26 @@ export default {
     }
   },
   methods: {
+    register() {
+      let data = {
+        name: this.name,
+        privateLey: this.key.private,
+        publicKey: this.key.public
+      };
+      console.log("register", data);
+    },
+    login() {
+      let data = {
+        name: this.name,
+        privateLey: this.key.private,
+        publicKey: this.key.public
+      };
+      console.log("login", data);
+    },
     next() {
       this.step++;
-      if (this.step > 4) {
-        // store.commit("user", data);
+      if (this.step >= 3) {
+        this.register();
       }
     },
     back() {
