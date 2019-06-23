@@ -137,7 +137,7 @@ export default {
           formData.append("blob_index", store.state.stream.postIndex);
           formData.append("blob_sec", store.state.stream.postSec);
 
-          console.log(URL, data);
+          console.log(URL, formData);
 
           // cryto / sign / integrity
           let signData = JSON.stringify({
