@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      messages: [],
+      messages: null,
       loading: false,
       socket: io(settings.APIDOMAIN)
     };
@@ -55,7 +55,13 @@ export default {
     listen() {
       this.socket.on("MSGTOCLIENT", data => {
         console.log("received message", data);
-        this.messages.push(data);
+        if (this.messages == null) {
+          this.messages = [
+            data
+          ];
+        } else {
+          this.messages.push(data);
+        }
       });
     },
     load() {
