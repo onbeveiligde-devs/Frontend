@@ -2,7 +2,13 @@
   <form @submit.prevent="send" v-if="loggedin">
     <b-form-group>
       <div class="input-group mb-3">
-        <input type="text" id="say" class="form-control" placeholder="Say something..." v-model="message">
+        <input
+          type="text"
+          id="say"
+          class="form-control"
+          placeholder="Say something..."
+          v-model="message"
+        >
 
         <b-button @click="sendMessage" variant="success" class="input-group-append">
           <font-awesome-icon icon="chevron-right"/>
@@ -17,7 +23,9 @@ import io from "socket.io-client";
 // @ is an alias to /src
 import settings from "@/settings.json";
 import store from "@/store";
-import Login from "../setup/Login.vue"
+import Login from "../setup/Login.vue";
+import ab2b64 from "@/models/ab2b64";
+import sign from "@/models/sign";
 
 export default {
   name: "say",
@@ -50,13 +58,21 @@ export default {
     },
     sendMessage() {
       console.log("say", this.message);
-      this.socket.emit("MSGTOSERV", {
-        message: this.message,
-        author: store.state.user._id,
-        subject: this.subject,
-        timestamp: Date.now(),
-        sign: this.message + "-" + this.timestamp
-      });
+      sign(this.message, store.state.key.private)
+        .then(signature => {
+          // signature is a arraybuffer of the SubtleCrypto sign
+          console.log("say signature", ab2b64(signature));
+          this.socket.emit("MSGTOSERV", {
+            message: this.message,
+            author: store.state.user._id,
+            subject: this.subject,
+            timestamp: Date.now(),
+            sign: ab2b64(signature)
+          });
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
     }
   }
 };
