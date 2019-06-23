@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, ViewChildren, AfterViewInit }
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
 import { templateJitUrl } from '@angular/compiler';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -9,12 +10,16 @@ import { templateJitUrl } from '@angular/compiler';
   templateUrl: './view-stream.component.html',
   styleUrls: ['./view-stream.component.css']
 })
+
+
+
 export class ViewStreamComponent {
   streamPos1: any[];
   streamPos2: any[];
   streamPos3: any[];
   streamPos4: any[];
 
+  public src : String;
 
   
 
@@ -26,6 +31,9 @@ export class ViewStreamComponent {
     this.streamPos2 = [];
     this.streamPos3 = [];
     this.streamPos4 = [];
+
+    this.src = environment.apiUrl
+
   }
 
   drop(event: CdkDragDrop<any[]>) {

@@ -11,8 +11,8 @@
         [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList', 'streamPos3List', 'streamPos4List']"
         class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of streamPos1" cdkDrag>
-          <video controls>
-              <source src = "http://nicks.rocks:3000/stream/demo1?uuid=e3594e80-9348-11e9-b242-db88659c9a24" type="video/webm">
+          <video *ngIf="item.id" controls>
+            <source [src]="src + item.id | safe" type="video/webm">
           </video>
 
           <button type="button" (click)="viewSingle(item.id)" style="margin-top: auto"
@@ -27,9 +27,10 @@
         [cdkDropListConnectedTo]="['streamPos1List', 'discoveryUsersList', 'streamPos3List', 'streamPos4List']"
         class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of streamPos2" cdkDrag>
-            <video controls>
-                <source src = "http://nicks.rocks:3000/stream/Demo2?uuid=c4949130-9348-11e9-b242-db88659c9a24--5" type="video/webm">
-            </video>
+          <video *ngIf="item.id" controls>
+            <source [src]="src + item.id | safe" type="video/webm">
+          </video>
+
           <button type="button" (click)="viewSingle(item.id)" style="margin-top: auto"
             class="btn btn-md orange-bootstrap-button">Watch</button>
         </div>
@@ -43,7 +44,11 @@
       <div cdkDropList id=streamPos3List [cdkDropListData]="streamPos3"
         [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList', 'streamPos4List', 'streamPos1List']"
         class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of streamPos3" cdkDrag>{{item}}
+        <div class="example-box" *ngFor="let item of streamPos3" cdkDrag>
+          <video *ngIf="item.id" controls>
+            <source [src]="src + item.id | safe" type="video/webm">
+          </video>
+
           <button type="button" (click)="viewSingle(item.id)" style="margin-top: auto"
             class="btn btn-md orange-bootstrap-button">Watch</button>
         </div>
@@ -53,7 +58,10 @@
       <div cdkDropList id=streamPos4List [cdkDropListData]="streamPos4"
         [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList','streamPos3List', 'streamPos1List']"
         class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of streamPos4" cdkDrag>{{item}}
+        <div class="example-box" *ngFor="let item of streamPos4" cdkDrag><video *ngIf="item.id" controls>
+            <source [src]="src + item.id | safe" type="video/webm">
+          </video>
+
           <button type="button" (click)="viewSingle(item.id)" style="margin-top: auto"
             class="btn btn-md orange-bootstrap-button">Watch</button>
         </div>
