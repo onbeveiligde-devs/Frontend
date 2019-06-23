@@ -28,7 +28,7 @@
         <Chat></Chat>
       </b-col>
 
-      <b-col lg="4">
+      <b-col v-if="loggedin" lg="4">
         <GoLive></GoLive>
       </b-col>
 

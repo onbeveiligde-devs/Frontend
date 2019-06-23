@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="send">
+  <form @submit.prevent="send" v-if="loggedin">
     <b-form-group>
       <div class="input-group mb-3">
         <input type="text" id="say" class="form-control" placeholder="Say something..." v-model="message">
