@@ -150,7 +150,7 @@ export default {
           sign(signData, store.state.key.private)
             .then(signature => {
               // signature is a arraybuffer of the SubtleCrypto sign
-              console.log("signature", ab2b64(signature));
+              // console.log("signature", ab2b64(signature));
               // --- post to server ---
               axios
                 .post(URL, formData, {
@@ -177,7 +177,7 @@ export default {
       sign(store.state.user._id, this.key.private)
         .then(signature => {
           // signature is a arraybuffer of the SubtleCrypto sign
-          console.log("say hi to server", ab2b64(signature));
+          // console.log("say hi to server", ab2b64(signature));
           this.socket.emit("HITOSERV", {
             _id: store.state.user._id,
             sign: ab2b64(signature)
@@ -198,7 +198,7 @@ export default {
         sign(store.state.user._id, this.key.private)
           .then(signature => {
             // signature is a arraybuffer of the SubtleCrypto sign
-            console.log("say bye to server", ab2b64(signature));
+            // console.log("say bye to server", ab2b64(signature));
             this.socket.emit("BYETOSERV", {
               _id: store.state.user._id,
               sign: ab2b64(signature)

@@ -230,7 +230,7 @@ export default {
         sign(this.name, this.key.private)
           .then(signature => {
             // signature is a arraybuffer of the SubtleCrypto sign
-            console.log("signature", ab2b64(signature));
+            // console.log("signature", ab2b64(signature));
             this.signature = ab2b64(signature);
 
             this.login();

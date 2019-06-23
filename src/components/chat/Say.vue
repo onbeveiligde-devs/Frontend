@@ -67,7 +67,7 @@ export default {
       sign(this.message, this.key)
         .then(signature => {
           // signature is a arraybuffer of the SubtleCrypto sign
-          console.log("say signature", ab2b64(signature));
+          // console.log("say signature", ab2b64(signature));
           this.socket.emit("MSGTOSERV", {
             message: this.message,
             author: store.state.user._id,
