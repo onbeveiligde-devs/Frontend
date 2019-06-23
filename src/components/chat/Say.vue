@@ -44,11 +44,17 @@ export default {
   computed: {
     loggedin() {
       return store.getters.loggedin;
+    },
+    key() {
+      return store.state.key.private;
     }
   },
   watch: {
     loggedin(n, old) {
       // console.log("new channel: ", n);
+    },
+    key(n, old) {
+      // console.log("new key: ", n);
     }
   },
   methods: {
@@ -58,7 +64,7 @@ export default {
     },
     sendMessage() {
       console.log("say", this.message);
-      sign(this.message, store.state.key.private)
+      sign(this.message, this.key)
         .then(signature => {
           // signature is a arraybuffer of the SubtleCrypto sign
           console.log("say signature", ab2b64(signature));

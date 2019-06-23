@@ -174,7 +174,7 @@ export default {
       console.log("start recording");
 
       // say hi to server
-      sign(store.state.user._id, store.state.key.private)
+      sign(store.state.user._id, this.key.private)
         .then(signature => {
           // signature is a arraybuffer of the SubtleCrypto sign
           console.log("say hi to server", ab2b64(signature));
@@ -195,7 +195,7 @@ export default {
         this.play = false;
 
         // say bye to server
-        sign(store.state.user._id, store.state.key.private)
+        sign(store.state.user._id, this.key.private)
           .then(signature => {
             // signature is a arraybuffer of the SubtleCrypto sign
             console.log("say bye to server", ab2b64(signature));

@@ -15,6 +15,9 @@
 import store from "@/store";
 import verify from "@/models/verify";
 
+// import WebCrypto
+const crypto = window.crypto || require("@trust/webcrypto");
+
 export default {
   name: "message",
   props: {
@@ -30,9 +33,24 @@ export default {
       user: {}
     };
   },
+  computed: {
+    key() {
+      return store.state.key.public;
+    }
+  },
+  watch: {
+    key(n, old) {
+      // console.log("new key: ", n);
+    }
+  },
   mounted: function() {
+    console.log('verify', {
+      msg: this.msg, 
+      sign: this.sign, 
+      key: this.key
+    })
     // verify
-    verify(this.msg, this.sign, this.user.publicKey)
+    verify(this.msg, this.sign, this.key)
       .then(success => {
         console.log("message verified", success);
         // this.vallid = true;
