@@ -174,12 +174,18 @@ export default {
       console.log("start recording");
 
       // say hi to server
-      let data = {
-        _id: store.state.user._id,
-        sign: store.state.user._id + "-" + this.timestamp
-      };
-      console.log("say hi to server", data);
-      this.socket.emit("HITOSERV", data);
+      sign(store.state.user._id, store.state.key.private)
+        .then(signature => {
+          // signature is a arraybuffer of the SubtleCrypto sign
+          console.log("say hi to server", ab2b64(signature));
+          this.socket.emit("HITOSERV", {
+            _id: store.state.user._id,
+            sign: ab2b64(signature)
+          });
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
     },
 
     stop() {
@@ -189,12 +195,18 @@ export default {
         this.play = false;
 
         // say bye to server
-        let data = {
-          _id: store.state.user._id,
-          sign: store.state.user._id + "-" + this.timestamp
-        };
-        console.log("say bye to server", data);
-        this.socket.emit("BYETOSERV", data);
+        sign(store.state.user._id, store.state.key.private)
+          .then(signature => {
+            // signature is a arraybuffer of the SubtleCrypto sign
+            console.log("say bye to server", ab2b64(signature));
+            this.socket.emit("BYETOSERV", {
+              _id: store.state.user._id,
+              sign: ab2b64(signature)
+            });
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
       }
     }
   }
