@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>channel: {{ channel }}</h3>
+    <p>my channel: {{ channel }}</p>
     <video
       ref="video"
       v-bind="localStream"
