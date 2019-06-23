@@ -55,6 +55,7 @@ Vue.component('vue-draggable-resizable', VueDraggableResizable)
 
 Vue.config.productionTip = false
 
+Vue.use(router)
 Vue.use(BootstrapVue)
 Vue.use(VueTextareaAutosize)
 

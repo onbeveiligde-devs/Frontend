@@ -20,6 +20,7 @@
 
 <script>
 import io from "socket.io-client";
+import axios from "axios";
 // @ is an alias to /src
 import settings from "@/settings.json";
 import store from "@/store";
@@ -38,7 +39,8 @@ export default {
   data() {
     return {
       message: "",
-      socket: io(settings.APIDOMAIN)
+      socket: io(settings.APIDOMAIN),
+      loading: false
     };
   },
   computed: {
@@ -74,11 +76,50 @@ export default {
             subject: this.subject,
             timestamp: Date.now(),
             sign: ab2b64(signature)
+          }).catch(err => {
+            console.log('socket error', err);
+            this.sendMessage();
           });
         })
         .catch(function(err) {
           console.error(err);
         });
+    },
+    postMessage() {
+      if (!this.loading) {
+        this.loading = true;
+        sign(this.message, this.key)
+          .then(signature => {
+            // signature is a arraybuffer of the SubtleCrypto sign
+            // console.log("say signature", ab2b64(signature));
+            axios
+              .post(settings.APIURL + "chat/" + this.subject, {
+                message: this.message,
+                author: store.state.user._id,
+                user: this.subject,
+                timestamp: Date.now(),
+                sign: ab2b64(signature)
+              })
+              .then(res => {
+                console.log("message result", res.data.messages);
+                this.loading = false;
+                if (res.status == 200) {
+                  this.messages = res.data.messages;
+                  console.log("message posted", res.data);
+                  this.$router.push('/');
+                } else {
+                  console.log("message status", res.status);
+                }
+              })
+              .catch(e => {
+                console.log("message error:", e);
+                this.loading = false;
+              });
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
+      }
     }
   }
 };
