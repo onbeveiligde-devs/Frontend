@@ -15,6 +15,8 @@ export class AuthenticationService {
   private privateKey: CryptoKey;
   private publicKey: CryptoKey;
 
+  private user: User;
+
   constructor(private http: HttpClient, private crypto: CryptoService, private userService: UserService, private router: Router) {
     this.headers = new HttpHeaders({'Content-Type': 'application/json'});
   }
@@ -79,10 +81,11 @@ export class AuthenticationService {
         .then(privateKey => {
           // private key is valid, unwrapping public key...
           this.crypto.unwrapKey(wrappedPublicKey, false)
-            .then(publicKey => {
+            .then(async publicKey => {
               // both stored keys are valid, cache them
               this.setPrivateKey(privateKey);
               this.setPublicKey(publicKey);
+              this.user = await this.userService.getUserByPublicKey(wrappedPublicKey);
               res(true);
             })
             .catch(_ => res(false));
@@ -91,9 +94,14 @@ export class AuthenticationService {
     })
   }
 
+  getUser(): User {
+    return this.user;
+  }
+
   logout(): void {
     this.setPrivateKey(null);
     this.setPublicKey(null);
+    this.user = null;
   }
 
   login(wrappedPrivateKey, wrappedPublicKey): Promise<boolean> {
@@ -120,6 +128,7 @@ export class AuthenticationService {
             this.setPrivateKey(unwrappedPrivateKey);
             this.setPublicKey(unwrappedPublicKey);
           }
+          this.user = this.userService.createUserFromObject(result.user);
           resolve(result.success);
         })
         .catch(e => reject(e));
@@ -141,7 +150,8 @@ export class AuthenticationService {
         .then(result => {
           this.setPrivateKey(keyPair.privateKey);
           this.setPublicKey(keyPair.publicKey);
-          resolve(this.userService.createUserFromObject(result.user));
+          this.user = this.userService.createUserFromObject(result.user);
+          resolve(this.user);
         })
         .catch(e => reject(e));
     });

@@ -27,7 +27,7 @@
       <div cdkDropList id=streamPos2List [cdkDropListData]="streamPos2"
         [cdkDropListConnectedTo]="['streamPos1List', 'discoveryUsersList', 'streamPos3List', 'streamPos4List']"
         class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of streamPos2" cdkDrag>
+        <div class="example-box" style="width: 100px" *ngFor="let item of streamPos2" cdkDrag>
           <video *ngIf="item.id" controls>
             <source [src]="src2 | safe" type="video/webm">
           </video>
