@@ -73,7 +73,6 @@ import store from "@/store";
 import str2ab from "@/models/str2ab";
 import ab2b64 from "@/models/ab2b64";
 import sign from "@/models/sign";
-
 // import WebCrypto
 const crypto = window.crypto || require("@trust/webcrypto");
 
