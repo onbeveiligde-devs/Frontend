@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-view-single-stream',
@@ -10,27 +11,32 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./view-single-stream.component.css']
 })
 export class ViewSingleStreamComponent implements OnInit {
-  
 
-  constructor(private router:Router, private userService : UserService) {
+  private user: User
+  public src: String
+  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute) {
 
-   }
+  }
 
 
 
   ngOnInit() {
-    // let uuid = this.userService.getUuid().then(res => console.log(res));;
 
+    this.userService.fetchUsers();
+    this.route.params.subscribe((params) => {
+      this.user = this.userService.searchUserById(params['id']);
+      this.src = environment.apiUrl + '/stream/' +  this.user.id + '?' + 'uuid=' +  this.user.uuid
 
+    })
 
 
   }
 
 
-  viewMultiple(){
+  viewMultiple() {
     this.router.navigate(['/follow'])
   }
-  recordStream(){
+  recordStream() {
     this.router.navigate(['/record'])
   }
 

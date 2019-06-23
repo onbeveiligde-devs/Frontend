@@ -7,8 +7,8 @@
 <div style="position:fixed; top: 170px;left:0; height: calc(100%-170px); width: 100%; background-color: white;">
   <video style="position: fixed; width: 100vh;
   max-height: 100vh" controls autoplay>
-    <source src="http://nicks.rocks:3000/stream/demo1?uuid=e3594e80-9348-11e9-b242-db88659c9a24" type="video/webm">
-  </video>
+      <source [src]="src | safe" type="video/webm">
+      </video>
   Your browser does not support HTML5 video.
 
   <div class="chat" style="position: fixed; width: 30%; float: right; height:100%; background-color: white; right: 0">

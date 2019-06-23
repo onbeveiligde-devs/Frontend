@@ -47,6 +47,7 @@ export class ViewStreamComponent {
   }
 
   drop(event: CdkDragDrop<any[]>) {
+    this.userService.fetchUsers();
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }
@@ -61,8 +62,7 @@ export class ViewStreamComponent {
           case 'streamPos1List': {
             this.src1 = environment.apiUrl + '/stream/' + this.streamPos1[0].id + '?' + 'uuid=' + this.streamPos1[0].uuid
             break;
-          }
-          case 'streamPos2List': {
+          } case 'streamPos2List': {
             this.src2 = environment.apiUrl + '/stream/' +  this.streamPos2[0].id + '?' + 'uuid=' +  this.streamPos2[0].uuid
             break;
           } case 'streamPos3List': {
