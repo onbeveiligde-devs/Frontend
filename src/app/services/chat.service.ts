@@ -3,38 +3,38 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { environment } from 'src/environments/environment';
+import {UserService} from './user.service';
+import {AuthenticationService} from './authentication.service';
+import {CryptoService} from './crypto.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
 
-  private url = 'http://localhost:3000';
   private socket;
-  private chats : Chat[];
 
-  constructor(private http: HttpClient) {
-    this.chats = []
-    this.socket = io(this.url)
-    console.log('in chat service')
-    console.log(this.socket)
-
+  constructor(private http: HttpClient, private userService: UserService, private authService: AuthenticationService, private cryptoService: CryptoService) {
+    this.chats = [];
+    this.socket = io(this.url);
+    console.log('in chat service');
+    console.log(this.socket);
   }
 
-  public sendMessage(message: String) {
+  public sendMessage(userId: string, message: string) {
+
+
 
     const body = {
       message: message,
-      author: '5d0b35df96d70b4a80cad5e9',
-      subject: '5d0b35df96d70b4a80cad5e9',
+      author: this.authService.getUser().id,
+      subject: userId,
       timestamp: Date.now(),
-      sign: '5d0b35df96d70b4a80cad5e9',
-      privateKey :"",
-      publicKey : ""
-    }
+      sign: sign
+    };
 
     this.socket.emit('MSGTOSERV', body)
-   
+
   }
 
   public getMessages(subject: String) {
