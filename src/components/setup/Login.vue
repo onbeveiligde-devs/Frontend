@@ -259,14 +259,18 @@ export default {
         })
         .then(() => {
           // save base 64 privatekey
+          console.log('save base 64 privatekey');
           privateBase64Key = btoa(JSON.stringify(exportedPrivateKey));
           console.log(privateBase64Key);
+          localStorage.setItem("exportedPrivateKey", privateBase64Key);
           store.commit("privateKey", privateBase64Key);
         })
         .then(() => {
           // save base 64 publickey
+          console.log('save base 64 publickey');
           publicBase64Key = btoa(JSON.stringify(exportedPublicKey));
           console.log(publicBase64Key);
+          localStorage.setItem("exportedPublicKey", publicBase64Key);
           store.commit("publicKey", publicBase64Key);
         })
         .catch(err => {
