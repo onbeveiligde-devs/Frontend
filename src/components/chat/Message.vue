@@ -13,6 +13,7 @@
 <script>
 // @ is an alias to /src
 import store from "@/store";
+import verify from "@/models/verify";
 
 export default {
   name: "message",
@@ -30,22 +31,21 @@ export default {
     };
   },
   mounted: function() {
-    this.verify();
-  },
-  methods: {
-    verify() {
-      if (true) {
-        this.vallid = true;
-        this.invalled = false;
-      } else {
-        this.vallid = false;
-        this.invalled = true;
-      }
-    }
+    // verify
+    verify(this.msg, this.sign, this.user.publicKey)
+      .then(success => {
+        console.log("message verified", success);
+        // this.vallid = true;
+        // this.invalled = false;
+      })
+      .catch(err => {
+        console.log("verifing message error", err);
+        // this.vallid = false;
+        // this.invalled = true;
+      });
   }
 };
 </script>
 
 <style scoped>
-
 </style>

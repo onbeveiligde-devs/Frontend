@@ -39,10 +39,10 @@ export default {
   },
   watch: {
     subject(n, old) {
-      console.log("new subject: ", n);
+      // console.log("new subject: ", n);
     },
     streaming(n, old) {
-      console.log("now streaming: ", n);
+      // console.log("now streaming: ", n);
     }
   },
   mounted: function() {
