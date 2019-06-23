@@ -141,7 +141,7 @@ export class AuthenticationService {
         .then(result => {
           this.setPrivateKey(keyPair.privateKey);
           this.setPublicKey(keyPair.publicKey);
-          resolve(this.userService.createUserFromObject(result));
+          resolve(this.userService.createUserFromObject(result.user));
         })
         .catch(e => reject(e));
     });
