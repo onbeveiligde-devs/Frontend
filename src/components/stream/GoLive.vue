@@ -124,7 +124,7 @@ export default {
 
         // console.log("blob is", videoBlob);
         blobToBase64(videoBlob, function(base64) {
-          console.log("de base64 van de blob is", base64);
+          // console.log("de base64 van de blob is", base64);
 
           let URL = settings.APIURL + "upload/" + store.state.runtime.channel;
           let formData = new FormData();
