@@ -14,6 +14,7 @@ export default new Vuex.Store({
       subject: null,
       channel: null,
       streaming: [],
+      users: [],
       browser: ''
     },
     stream: {
@@ -46,6 +47,10 @@ export default new Vuex.Store({
       state.user = user;
       state.runtime.channel = user._id;
       state.runtime.subject = user._id;
+      state.runtime.users.push(user);
+    },
+    users(state, users) {
+      state.runtime.users = users;
     },
     subject(state, id) {
       state.runtime.subject = id;

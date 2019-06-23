@@ -78,7 +78,6 @@ export default {
   },
   data() {
     return {
-      users: [],
       loading: false,
       width: 0,
       height: 0,
@@ -93,6 +92,9 @@ export default {
     browser() {
       return store.state.runtime.browser;
     },
+    users() {
+      return store.state.runtime.users;
+    },
     loggedin() {
       return store.getters.loggedin;
     }
@@ -103,6 +105,9 @@ export default {
     },
     streaming(n, old) {
       // console.log("now streaming: ", n);
+    },
+    users(n, old) {
+      // console.log("new user: ", n);
     },
     browser(n, old) {
       console.log("now browser: ", n);
@@ -117,8 +122,8 @@ export default {
           console.log("users result", res.data.users);
           this.loading = false;
           if (res.status == 200) {
-            this.users = res.data.users;
             console.log("received users", res.data);
+            store.commit('users', res.data.users);
           } else {
             console.log("user status", res.status);
           }
