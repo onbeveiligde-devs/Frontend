@@ -11,7 +11,7 @@ import {AuthenticationService} from '../../../services/authentication.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private _snackBar : MatSnackBar, private router: Router, private authService: AuthenticationService) { }
+  constructor(private _snackBar : MatSnackBar, public router: Router, private authService: AuthenticationService) { }
 
   loading = false;
   registerForm: FormGroup;

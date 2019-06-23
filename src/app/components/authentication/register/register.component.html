@@ -1,5 +1,5 @@
 
-<div class="col-md-12">
+<div class="col-md-4 offset-4">
   <mat-card>
     <mat-card-header>
       <mat-card-title>
@@ -25,14 +25,10 @@
           </table>
         </div>
         <mat-card-actions>
-          <div *ngIf="!loading">
-            <button mat-raised-button color="primary" [disabled]="!registerForm.valid" type="submit">Register</button>
-            <br>
-          </div>
-          <div *ngIf="loading">
-            <button mat-raised-button disabled color="primary"><i class="fa fa-circle-o-notch fa-spin"></i>
-              Loading</button>
-          </div>
+          <button *ngIf="!loading" class="btn btn-primary" [disabled]="!registerForm.valid" type="submit">Register</button>
+          <button *ngIf="loading" class="btn btn-secondary" disabled color="primary" ><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
+
+          <button class="btn btn-light" style="float:right" (click)="router.navigateByUrl('/login')">Log in</button>
         </mat-card-actions>
       </form>
     </mat-card-content>

@@ -11,7 +11,7 @@ import {AuthenticationService} from '../../../services/authentication.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private _snackbar: MatSnackBar, private router: Router, private authService: AuthenticationService) {
+  constructor(private _snackbar: MatSnackBar, public router: Router, private authService: AuthenticationService) {
 
   }
 

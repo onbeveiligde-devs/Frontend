@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-4 offset-4">
 
 
 <mat-card>
@@ -41,18 +41,11 @@
 
       </div>
       <mat-card-actions>
-          <div *ngIf="!loading">
-              <button mat-raised-button color="primary" [disabled]="!loginForm.valid" type="submit">Login</button>
-              <br>
-          </div>
+        <button *ngIf="!loading" class="btn btn-primary" [disabled]="!loginForm.valid" type="submit">Login</button>
+        <button *ngIf="loading" class="btn btn-secondary" disabled color="primary" ><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
 
-
-          <div *ngIf="loading">
-              <button mat-raised-button disabled color="primary" ><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
-
-          </div>
-
-        </mat-card-actions>
+        <button class="btn btn-light" style="float:right" (click)="router.navigateByUrl('/register')">Register</button>
+      </mat-card-actions>
       </form>
     </mat-card-content>
   </mat-card>
