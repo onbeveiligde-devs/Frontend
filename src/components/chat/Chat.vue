@@ -55,12 +55,12 @@ export default {
     listen() {
       this.socket.on("MSGTOCLIENT", data => {
         console.log("received message", data);
-        if (this.messages == null) {
-          this.messages = [
-            data
-          ];
-        } else {
-          this.messages.push(data);
+        if (data.user == this.subject) {
+          if (this.messages == null) {
+            this.messages = [data];
+          } else {
+            this.messages.push(data);
+          }
         }
       });
     },
