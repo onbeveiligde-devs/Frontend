@@ -70,90 +70,12 @@ import axios from "axios";
 // @ is an alias to /src
 import settings from "@/settings.json";
 import store from "@/store";
+import str2ab from "@/models/str2ab";
+import ab2b64 from "@/models/ab2b64";
+import sign from "@/models/sign";
 
 // import WebCrypto
 const crypto = window.crypto || require("@trust/webcrypto");
-
-/**
- * convert string to ArrayBuffer
- * @param {String} str data to convert
- * @returns {ArrayBuffer} converted data
- */
-function str2ab(str) {
-  // string to array buffer
-  var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
-  var bufView = new Uint16Array(buf);
-  for (var i = 0, strLen = str.length; i < strLen; i++) {
-    bufView[i] = str.charCodeAt(i);
-  }
-  return buf;
-}
-
-/**
- * convert ArrayBuffer to string. chars array required
- * @param {ArrayBuffer} arraybuffer to convert
- * @returns {String} converted data
- */
-const chars =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-function ab2b64(arraybuffer) {
-  var bytes = new Uint8Array(arraybuffer),
-    i,
-    len = bytes.length,
-    base64 = "";
-
-  for (i = 0; i < len; i += 3) {
-    base64 += chars[bytes[i] >> 2];
-    base64 += chars[((bytes[i] & 3) << 4) | (bytes[i + 1] >> 4)];
-    base64 += chars[((bytes[i + 1] & 15) << 2) | (bytes[i + 2] >> 6)];
-    base64 += chars[bytes[i + 2] & 63];
-  }
-
-  if (len % 3 === 2) {
-    base64 = base64.substring(0, base64.length - 1) + "=";
-  } else if (len % 3 === 1) {
-    base64 = base64.substring(0, base64.length - 2) + "==";
-  }
-
-  return base64;
-}
-
-/**
- * Create signature
- * @requires ab2b64 convert ArrayBuffer to string. chars array required
- * @requires str2ab() convert string to ArrayBuffer
- * @param {String} data data to sign
- * @param {String} key private key
- * @returns {Promise} then signature catch error
- */
-function sign(data, key) {
-  return new Promise((res, rej) => {
-    crypto.subtle
-      .importKey(
-        "jwk",
-        JSON.parse(atob(key)),
-        {
-          name: "RSASSA-PKCS1-v1_5",
-          hash: {
-            name: "SHA-256"
-          }
-        },
-        true,
-        ["sign"]
-      )
-      .then(privateKey => {
-        return crypto.subtle.sign(
-          {
-            name: "RSASSA-PKCS1-v1_5"
-          },
-          privateKey,
-          str2ab(data)
-        );
-      })
-      .then(signature => res(signature))
-      .catch(err => rej(err));
-  });
-}
 
 export default {
   name: "login",

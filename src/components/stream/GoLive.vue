@@ -78,11 +78,17 @@ export default {
     },
     apiurl() {
       return settings.APIURL;
+    },
+    key() {
+      return store.state.key;
     }
   },
   watch: {
     channel(n, old) {
       console.log("new channel: ", n);
+    },
+    key(n, old) {
+      // console.log("new key: ", n);
     }
   },
   data() {
@@ -161,8 +167,18 @@ export default {
 
           console.log(URL, data);
 
+          // sign
+          let signData = JSON.stringify({
+            base64: base64,
+            index: formData.get("blob_index"),
+            name: formData.get("blob_name"),
+            second: formData.get("blob_sec")
+          });
+
           axios
-            .post(URL, data)
+            .post(URL, data, {
+              headers: { signature: null }
+            })
             .then(response => {
               console.log("response", response);
             })
@@ -176,6 +192,7 @@ export default {
       this.recorder.start(this.intervalMiliSec);
       console.log("start recording");
 
+      // say hi to server
       let data = {
         _id: store.state.user._id,
         sign: store.state.user._id + "-" + this.timestamp
@@ -190,6 +207,7 @@ export default {
         console.log("stop recording");
         this.play = false;
 
+        // say bye to server
         let data = {
           _id: store.state.user._id,
           sign: store.state.user._id + "-" + this.timestamp
