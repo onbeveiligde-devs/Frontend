@@ -2,8 +2,8 @@
   <div>
     <p>time: {{ time }} buffer: {{ timeBuffer }} channel: {{ channel }}</p>
 
-    <video ref="video" hidden style="width: 100%; border: 1px solid;">
-      <source :src="apiurl + 'stream/' + channel + '?uuid=' + uuid" type="video/webm;">
+    <video ref="video" autoplay="1" style="max-width: 100%; border: 1px solid;">
+      <source :src="apiurl + 'stream/' + channel" type="video/webm;">
     </video>
 
     <b-button v-if="!play" @click="start($event)" variant="success" class="btn-lg btn-block">

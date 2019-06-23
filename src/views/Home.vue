@@ -40,8 +40,8 @@
 
     <div v-for="id in streaming" :key="id">
       <vue-draggable-resizable
-        :w="500"
-        :h="300"
+        :w="305"
+        :h="275"
         @dragging="onDrag"
         @resizing="onResize"
         :parent="false"
