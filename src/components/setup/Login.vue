@@ -202,7 +202,18 @@ export default {
    * then ...
    */
   mounted: function() {
-    if (true) {
+    let jwkPrivateKey = localStorage.getItem("exportedPrivateKey");
+    let jwkPublicKey = localStorage.getItem("exportedPublicKey");
+    console.log('keys found in localStorage', {
+      private: jwkPrivateKey,
+      public: jwkPublicKey
+    });
+
+    if (jwkPrivateKey != null && jwkPublicKey != null) {
+      console.log("retrieve keys from localtorage...");
+      store.commit('privateKey', jwkPrivateKey);
+      store.commit('publicKey', jwkPublicKey);
+    } else {
       console.log("create new keys...");
 
       // process vars
