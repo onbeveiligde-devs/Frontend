@@ -4,10 +4,10 @@
 <div class="container-fluid">
 
   <div class="text-center">
-   
-      <button type="button" (click)="recordStream()" class="btn btn-lg orange-bootstrap-button">Start streaming</button>
-      <br><br>
-    
+
+    <button type="button" (click)="recordStream()" class="btn btn-lg orange-bootstrap-button">Start streaming</button>
+    <br><br>
+
   </div>
 
   <div class="row">
@@ -19,15 +19,14 @@
             alt="">
           <mat-card-content>
             <p>
-              {{user.username}} is streaming !
+              {{user.name}} is streaming !
             </p>
           </mat-card-content>
           <mat-card-actions>
             <button type="button" (click)="watchStream(user.id)" class="btn btn orange-bootstrap-button">Watch</button>
           </mat-card-actions>
         </mat-card>
-      
-    </div>
+      </div>
     </div>
   </div>
 </div>

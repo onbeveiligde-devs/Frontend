@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import {UserService} from '../../services/user.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -11,6 +12,7 @@ import {UserService} from '../../services/user.service';
 })
 export class UserListComponent implements OnInit {
 
+  private _interval: any;
   users: User[];
 
   constructor(private userService: UserService) {
@@ -19,6 +21,13 @@ export class UserListComponent implements OnInit {
 
   async ngOnInit() {
     this.users = await this.userService.fetchUsers();
+    this._interval = setInterval(async () => {
+      this.users = await this.userService.fetchUsers();
+    }, 3000);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this._interval);
   }
 
 
