@@ -397,7 +397,7 @@ export default {
         this.status = "profile";
         axios
           .post(settings.APIURL + "user", {
-            key: this.key.public
+            publicKey: this.key.public
           })
           .then(res => {
             this.loading = false;
