@@ -46,8 +46,8 @@ export default {
     this.watchVideo.play();
 
     setTimeout(() => {
-      // this.watchVideo.currentTime = this.watchVideo.buffered.end(0) - 1;
-      this.watchVideo.currentTime = this.watchVideo.buffered.end(0);
+      this.watchVideo.currentTime = this.watchVideo.buffered.end(0) - 1;
+      // this.watchVideo.currentTime = this.watchVideo.buffered.end(0);
       this.play = true;
     }, 10000);
 
