@@ -12,15 +12,17 @@ import {MatButtonModule, MatCheckboxModule, MatCardModule, MatFormFieldModule,Ma
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { MatTabsModule } from '@angular/material';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/authentication/login/login.component';
 import {FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RegisterComponent } from './components/register/register.component'
+import { RegisterComponent } from './components/authentication/register/register.component'
 import { UserService } from './services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 import { SafePipe } from './pipes/safe.pipe';
+import {LogoutComponent} from './components/authentication/logout/logout.component';
+import { CheckKeysComponent } from './components/authentication/check-keys/check-keys.component';
 
 
 
@@ -36,7 +38,9 @@ import { SafePipe } from './pipes/safe.pipe';
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    SafePipe
+    SafePipe,
+    LogoutComponent,
+    CheckKeysComponent
   ],
   imports: [
     BrowserModule,
@@ -56,10 +60,9 @@ import { SafePipe } from './pipes/safe.pipe';
     MatInputModule,
     DragDropModule,
     CommonModule
-   
+
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
- 

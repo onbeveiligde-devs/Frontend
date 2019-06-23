@@ -16,10 +16,6 @@ export class UserService {
     this.users = [];
   }
 
-  constructor(private http: HttpClient) {
-    this.fetchUsers();
-  }
-
   public createUserFromObject(obj): User {
     return new User(obj._id, obj.name, false, obj.balance, obj.publicKey, '');
   }

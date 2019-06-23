@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-md-8 offset-2">
+      <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Your keys</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">Private key</h1>
+            <textarea cols="80" disabled="disabled">{{privateKey}}</textarea>
+            <small><button class="btn btn-secondary" (click)="copy(privateKey)" value="">Click to copy</button></small>
+            <br />
+            <h1 class="card-title pricing-card-title">Public key</h1>
+            <textarea cols="80" disabled="disabled">{{publicKey}}</textarea>
+            <small><button class="btn btn-secondary" (click)="copy(publicKey)" value="">Click to copy</button></small>
+            <br />
+            <p>Store both keys on your pc to log in after you log out</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

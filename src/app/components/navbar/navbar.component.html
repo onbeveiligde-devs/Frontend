@@ -1,6 +1,28 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-  <!-- TODO: If user is logged in, display backbutton -->
-    <i id="backbutton" class="fa fa-angle-left fa-2x fa-inverse" (click)="goback()"></i>
+    <i id="backbutton" *ngIf="authService.isLoggedIn()" class="fa fa-angle-left fa-2x fa-inverse" (click)="goBack()"></i>
     <a class="navbar-brand" [routerLink]="['/discovery']">TransPeople</a>
+
+
+
+    <span class="navbar-text" style="float:right">
+      Log out
+    </span>
+  </nav>-->
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+  <i style="color: grey" id="backbutton" *ngIf="authService.isLoggedIn()" class="fa fa-angle-left fa-2x fa-inverse" (click)="goBack()"></i>
+  <h5 class="my-0 mr-md-auto font-weight-normal" [routerLink]="'/login'" style="cursor:pointer">TransPeople</h5>
+  <nav class="my-2 my-md-0 mr-md-3" *ngIf="authService.isLoggedIn()">
+    <a class="p-2 text-dark" [routerLink]="'/discovery'">Discovery</a>
+    <a class="p-2 text-dark" [routerLink]="'/keys'">View keys</a>
   </nav>
+  <div *ngIf="authService.isLoggedIn(); else loggedOut">
+    <a class="btn btn-outline-primary" [routerLink]="'/logout'">Log out</a>
+  </div>
+
+  <ng-template #loggedOut>
+    <a class="btn btn-outline-primary" [routerLink]="'/login'">Sign in</a>
+  </ng-template>
+
+</div>

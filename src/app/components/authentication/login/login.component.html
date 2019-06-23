@@ -12,20 +12,9 @@
       class="loginForm"
       [formGroup]="loginForm"
       (ngSubmit)="onSubmit()">
-  
+
       <div class="form-group text-center">
         <table cellspacing="0">
-          <tr>
-            <td>
-                <mat-form-field appearance="outline">
-                  <mat-label> Public key</mat-label>
-                  <input input="text" id="publickey" matInput placeholder="Enter your public key" formControlName="publickey">
-                  <mat-error *ngIf="loginForm.get('publickey').hasError('required')">
-                      Public key required
-                   </mat-error>
-                </mat-form-field>
-            </td>
-          </tr>
           <tr>
             <td>
                 <mat-form-field appearance="outline">
@@ -37,21 +26,32 @@
                 </mat-form-field>
             </td>
           </tr>
+          <tr>
+            <td>
+              <mat-form-field appearance="outline">
+                <mat-label> Public key</mat-label>
+                <input input="text" id="publickey" matInput placeholder="Enter your public key" formControlName="publickey">
+                <mat-error *ngIf="loginForm.get('publickey').hasError('required')">
+                  Public key required
+                </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
         </table>
-  
+
       </div>
       <mat-card-actions>
           <div *ngIf="!loading">
               <button mat-raised-button color="primary" [disabled]="!loginForm.valid" type="submit">Login</button>
               <br>
           </div>
-          
-  
+
+
           <div *ngIf="loading">
               <button mat-raised-button disabled color="primary" ><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
 
           </div>
-          
+
         </mat-card-actions>
       </form>
     </mat-card-content>
