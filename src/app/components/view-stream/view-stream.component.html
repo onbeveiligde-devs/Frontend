@@ -11,8 +11,8 @@
         [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList', 'streamPos3List', 'streamPos4List']"
         class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of streamPos1" cdkDrag>
-          <video style="max-height: 250px" *ngIf="item.id" controls>
-            <source [src]="src1 | safe" type="video/webm">
+          <video style="max-height: 250px" *ngIf="item.id" autoplay="true" controls >
+            <source [src]="src1 | safe"  type="video/webm">
           </video>
 
 
@@ -28,7 +28,7 @@
         [cdkDropListConnectedTo]="['streamPos1List', 'discoveryUsersList', 'streamPos3List', 'streamPos4List']"
         class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" style="height: 300px;" *ngFor="let item of streamPos2" cdkDrag>
-          <video style="max-height: 250px" *ngIf="item.id" controls>
+          <video style="max-height: 250px" *ngIf="item.id" autoplay="true" controls>
             <source [src]="src2 | safe" type="video/webm">
           </video>
 
@@ -46,7 +46,7 @@
         [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList', 'streamPos4List', 'streamPos1List']"
         class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" style="height: 300px;" *ngFor="let item of streamPos3" cdkDrag>
-          <video style="max-height: 250px" *ngIf="item.id" controls>
+          <video style="max-height: 250px" *ngIf="item.id" autoplay="true" controls>
             <source [src]="src3 | safe" type="video/webm">
           </video>
 
@@ -60,7 +60,7 @@
         [cdkDropListConnectedTo]="['streamPos2List', 'discoveryUsersList','streamPos3List', 'streamPos1List']"
         class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" style="height: 300px;"  *ngFor="let item of streamPos4" cdkDrag>
-          <video style="max-height: 250px" *ngIf="item.id" controls>
+          <video style="max-height: 250px" *ngIf="item.id" autoplay="true" controls>
             <source [src]="src4 | safe" type="video/webm">
           </video>
 
