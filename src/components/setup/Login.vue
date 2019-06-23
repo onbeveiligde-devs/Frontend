@@ -208,15 +208,14 @@ export default {
     console.log("keys found in localStorage", {
       private: jwkPrivateKey,
       public: jwkPublicKey,
-      user: jwkUser
+      user: JSON.parse(jwkUser)
     });
 
-    if (jwkUser != null) store.commit("user", jwkUser);
-
-    if (jwkPrivateKey != null && jwkPublicKey != null) {
+    if (jwkPrivateKey != null && jwkPublicKey != null && jwkUser != null) {
       console.log("retrieve keys from localtorage...");
       store.commit("privateKey", jwkPrivateKey);
       store.commit("publicKey", jwkPublicKey);
+      store.commit("user", JSON.parse(jwkUser));
     } else {
       console.log("create new keys...");
 
@@ -337,7 +336,7 @@ export default {
             this.loading = false;
             if (res.status == 200) {
               console.log("register result", res.data);
-              localStorage.setItem("exportedUser", res.data);
+              localStorage.setItem("exportedUser", JSON.stringify(res.data.user));
               store.commit("user", res.data);
               this.status = "received";
             } else {
@@ -406,7 +405,7 @@ export default {
               console.log("profile result", res.data);
               if (res.data.success) {
                 console.log("user profile received");
-                localStorage.setItem("exportedUser", res.data.user);
+                localStorage.setItem("exportedUser", JSON.stringify(res.data.user));
                 store.commit("user", res.data.user);
                 this.status = "received";
               } else {
