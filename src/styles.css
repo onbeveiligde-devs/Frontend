@@ -3,3 +3,11 @@
 .mat-tab-label{
     min-width: 0px !important;    
 }
+
+html, body {
+    height:100% !important;
+}
+
+app-root, .spacing {
+    height: calc(100% - 96px);
+}

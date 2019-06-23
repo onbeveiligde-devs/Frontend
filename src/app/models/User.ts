@@ -1,9 +1,12 @@
 
 export class User {
 
-
-
-  constructor(public id: string, public publicKey: string, public name: string, public balance: number) {
+  constructor(public id: string,
+    public name: string,
+    public online: boolean,
+    public balance: number,
+    public publicKey : string,
+    public uuid : string) {
 
   }
 

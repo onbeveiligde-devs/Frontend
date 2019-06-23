@@ -17,19 +17,13 @@ export class DiscoveryComponent implements OnInit {
   users : User[];
   onlineUsers : User[];
 
-  constructor(private router : Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   async ngOnInit() {
-
-
     //TODO: Implement service to retrieve all users
 
-    this.users = await this.userService.fetchAll();
-    this.onlineUsers = [];
-
-    //this.onlineUsers = this.users.filter(x=> x.online)
-
-
+    this.users = await this.userService.fetchUsers();
+    this.onlineUsers = this.users.filter(x=> x.online)
   }
 
   recordStream(){

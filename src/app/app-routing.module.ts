@@ -14,8 +14,8 @@ const routes: Routes = [
   { path: 'discovery', component: DiscoveryComponent, pathMatch: 'full' },
   { path: 'follow/:id', component: ViewSingleStreamComponent, pathMatch: 'full' },
   { path: 'record', component: RecordStreamComponent, pathMatch: 'full' },
-  {path : 'login', component : LoginComponent, pathMatch: 'full'},
-  { path : 'register', component : RegisterComponent, pathMatch: 'full'}
+  { path: 'login', component: LoginComponent, pathMatch: 'full' },
+  { path: 'register', component: RegisterComponent, pathMatch: 'full' }
 ];
 
 
