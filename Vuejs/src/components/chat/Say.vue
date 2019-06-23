@@ -76,13 +76,11 @@ export default {
             subject: this.subject,
             timestamp: Date.now(),
             sign: ab2b64(signature)
-          }).catch(err => {
-            console.log('socket error', err);
-            this.sendMessage();
           });
         })
         .catch(function(err) {
           console.error(err);
+          this.postMessage();
         });
     },
     postMessage() {
