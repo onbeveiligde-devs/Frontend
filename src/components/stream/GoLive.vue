@@ -73,8 +73,6 @@ export default {
       play: false,
       localStream: null,
       recorder: null,
-      blobUrl: null,
-      blobUrls: [],
       intervalMiliSec: store.state.stream.intervalSec * 1000
     };
   },
@@ -129,19 +127,19 @@ export default {
           console.log("de base64 van de blob is", base64);
 
           let URL = settings.APIURL + "upload/" + store.state.runtime.channel;
-          let data = new FormData();
+          let formData = new FormData();
 
-          data.append("blob_base64", base64);
-          data.append(
+          formData.append("blob_base64", base64);
+          formData.append(
             "blob_name",
             "video_" + store.state.stream.postIndex + ".webm"
           );
-          data.append("blob_index", store.state.stream.postIndex);
-          data.append("blob_sec", store.state.stream.postSec);
+          formData.append("blob_index", store.state.stream.postIndex);
+          formData.append("blob_sec", store.state.stream.postSec);
 
           console.log(URL, data);
 
-          // sign
+          // cryto / sign / integrity
           let signData = JSON.stringify({
             base64: base64,
             index: formData.get("blob_index"),
@@ -149,15 +147,24 @@ export default {
             second: formData.get("blob_sec")
           });
 
-          axios
-            .post(URL, data, {
-              headers: { signature: null }
+          sign(signData, store.state.key.private)
+            .then(signature => {
+              // signature is a arraybuffer of the SubtleCrypto sign
+              console.log("signature", ab2b64(signature));
+              // --- post to server ---
+              axios
+                .post(URL, data, {
+                  headers: { signature: ab2b64(signature) }
+                })
+                .then(response => {
+                  console.log("response", response);
+                })
+                .catch(error => {
+                  console.log("error", error);
+                });
             })
-            .then(response => {
-              console.log("response", response);
-            })
-            .catch(error => {
-              console.log("error", error);
+            .catch(function(err) {
+              console.error(err);
             });
           store.commit("postIndex");
         });
