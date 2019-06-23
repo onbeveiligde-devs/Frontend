@@ -1,9 +1,9 @@
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 /**
- * convert ArrayBuffer to string. chars array required
+ * convert ArrayBuffer to base64
  * @param {ArrayBuffer} arraybuffer to convert
- * @returns {String} converted data
+ * @returns {base64} converted data
  */
 export default function (arraybuffer) {
     var bytes = new Uint8Array(arraybuffer),

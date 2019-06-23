@@ -21,6 +21,7 @@
 </template>
 
 <script>
+// ask for user media from browser
 navigator.getUserMedia =
   navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
@@ -28,44 +29,19 @@ navigator.getUserMedia =
 window.RTCPeerConnection =
   window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
 window.RTCIceCandidate = window.mozRTCIceCandidate || window.RTCIceCandidate;
-
-function blobToBase64(blob, callback) {
-  console.log("blob to base64");
-  var reader = new FileReader();
-  reader.onload = function() {
-    var dataUrl = reader.result;
-    var base64 = dataUrl.split(",")[2];
-
-    if (base64 == null) {
-      base64 = dataUrl.split(",")[1];
-    }
-
-    callback(base64);
-  };
-  reader.readAsDataURL(blob);
-}
-
-function ab2str(buf) {
-  console.log("arrayBuffer to string");
-  return String.fromCharCode.apply(null, new Uint16Array(buf));
-}
-
-function str2ab(str) {
-  console.log("string to array buffer");
-  var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
-  var bufView = new Uint16Array(buf);
-  for (var i = 0, strLen = str.length; i < strLen; i++) {
-    bufView[i] = str.charCodeAt(i);
-  }
-  return buf;
-}
-
+// import packages
 import io from "socket.io-client";
 import axios from "axios";
 // @ is an alias to /src
 import settings from "@/settings.json";
-
 import store from "@/store";
+import blobToBase64 from "@/models/blobToBase64";
+import ab2str from "@/models/ab2str";
+import str2ab from "@/models/str2ab";
+import ab2b64 from "@/models/ab2b64";
+import sign from "@/models/sign";
+// import WebCrypto
+const crypto = window.crypto || require("@trust/webcrypto");
 
 export default {
   name: "golive",
