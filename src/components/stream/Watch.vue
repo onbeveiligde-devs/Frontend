@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>{{ channel }}</h3>
+    <h3>channel: {{ channel }}</h3>
     <p>time: {{ time }} buffer: {{ timeBuffer }}</p>
 
     <video ref="video" hidden style="width: 100%; border: 1px solid;">

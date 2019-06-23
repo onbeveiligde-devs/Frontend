@@ -38,7 +38,7 @@
       </b-col>
     </b-row>
 
-    <div v-for="o in streaming">
+    <div v-for="id in streaming" :key="id">
       <vue-draggable-resizable
         :w="500"
         :h="300"
@@ -46,7 +46,7 @@
         @resizing="onResize"
         :parent="false"
       >
-        <Watch :channel="o._id"></Watch>
+        <Watch :channel="id"></Watch>
       </vue-draggable-resizable>
     </div>
   </b-container>

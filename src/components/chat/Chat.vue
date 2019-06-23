@@ -7,7 +7,7 @@
           <span class="sr-only">Loading...</span>
         </div>
       </li>
-      <li v-for="o of messages">
+      <li v-for="o of messages" :key="o._id">
         <Message :author="o.author" :msg="o.message" :sign="o.sign" :timestamp="o.timestamp"/>
       </li>
     </ul>
