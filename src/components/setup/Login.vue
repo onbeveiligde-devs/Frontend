@@ -193,7 +193,7 @@ export default {
       step: 0,
       loading: false,
       status: "",
-      name: "nick",
+      name: "",
       signature: ""
     };
   },
