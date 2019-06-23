@@ -137,7 +137,10 @@ export default {
       store.commit("privateKey", jwkPrivateKey);
       store.commit("publicKey", jwkPublicKey);
       store.commit("user", JSON.parse(jwkUser));
-    } else {
+    } else if (
+      crypto.subtle != undefined &&
+      crypto.subtle.generateKey != undefined
+    ) {
       console.log("create new keys...");
 
       // process vars
@@ -326,7 +329,10 @@ export default {
               console.log("profile result", res.data);
               if (res.data.success) {
                 console.log("user profile received");
-                localStorage.setItem("exportedUser", JSON.stringify(res.data.user));
+                localStorage.setItem(
+                  "exportedUser",
+                  JSON.stringify(res.data.user)
+                );
                 store.commit("user", res.data.user);
                 this.status = "received";
               } else {

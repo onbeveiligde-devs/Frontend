@@ -12,6 +12,13 @@ const crypto = window.crypto || require("@trust/webcrypto");
  */
 export default function (data, key) {
     return new Promise((res, rej) => {
+        if (crypto.subtle == undefined ||
+            crypto.subtle.importKey == undefined ||
+            crypto.subtle.sign == undefined
+        ) {
+            rej('crypto undefined');
+        }
+
         crypto.subtle
             .importKey(
                 "jwk",
