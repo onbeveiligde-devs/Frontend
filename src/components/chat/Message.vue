@@ -1,11 +1,13 @@
 <template>
-  <p>
-    {{ timestamp }}
-    <b>{{ author }}:</b>
-    {{ msg }}
-    <font-awesome-icon v-show="vallid" icon="check"/>
-    <font-awesome-icon v-show="invalled" icon="exclamation-triangle"/>
-  </p>
+  <div :alt="timestamp">
+    <span>{{ new Date(timestamp).toISOString().slice(-13, -5) }}</span>
+    <p>
+      <b>{{ author }}:</b>
+      {{ msg }}
+      <font-awesome-icon v-show="vallid" icon="check"/>
+      <font-awesome-icon v-show="invalled" icon="exclamation-triangle"/>
+    </p>
+  </div>
 </template>
 
 <script>
@@ -23,7 +25,8 @@ export default {
   data() {
     return {
       vallid: false,
-      invalled: false
+      invalled: false,
+      user: {}
     };
   },
   mounted: function() {
@@ -44,4 +47,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>
