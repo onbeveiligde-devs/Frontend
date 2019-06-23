@@ -153,7 +153,7 @@ export default {
               console.log("signature", ab2b64(signature));
               // --- post to server ---
               axios
-                .post(URL, data, {
+                .post(URL, formData, {
                   headers: { signature: ab2b64(signature) }
                 })
                 .then(response => {
