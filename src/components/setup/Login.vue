@@ -1,6 +1,7 @@
 <template>
   <form @submit.prevent="send">
     <b-form-group>
+      <!-- step overview -->
       <p>
         <font-awesome-icon :class="{ 'text-muted' : step != 0}" icon="key"/>&emsp;
         <font-awesome-icon class="text-muted" icon="long-arrow-alt-right"/>&emsp;
@@ -12,6 +13,7 @@
       </p>
 
       <b-input-group>
+        <!-- back button -->
         <b-button
           v-if="step > 0"
           @click="back()"
@@ -21,6 +23,7 @@
           <font-awesome-icon icon="chevron-left"/>
         </b-button>
 
+        <!-- public key -->
         <div v-if="step == 0">
           <textarea-autosize
             placeholder="paste public key here"
@@ -29,6 +32,7 @@
           ></textarea-autosize>
         </div>
 
+        <!-- private key -->
         <div v-if="step == 1">
           <textarea-autosize
             placeholder="paste private key here"
@@ -37,10 +41,12 @@
           ></textarea-autosize>
         </div>
 
+        <!-- name or copmmend -->
         <div v-if="step == 2">
           <input type="text" placeholder="What is your name?" class="form-control" v-model="name">
         </div>
 
+        <!-- loading -->
         <div v-if="step == 3">
           <input type="text" :placeholder="status+'...'" class="form-control" disabled>
         </div>
@@ -50,6 +56,7 @@
           </div>
         </b-button>
 
+        <!-- next button -->
         <b-button v-if="step < 3" @click="next()" variant="success" class="input-group-append">
           <font-awesome-icon icon="chevron-right"/>
         </b-button>
@@ -146,10 +153,16 @@ function sign(data, key) {
 }
 
 export default {
-  name: "say",
+  name: "login",
+  /**
+   * variables given from other components
+   */
   props: {
     subject: String
   },
+  /**
+   * computed variables of this component
+   */
   computed: {
     key() {
       return store.state.key;
@@ -158,6 +171,9 @@ export default {
       return store.state.user;
     }
   },
+  /**
+   * watch for changes and update computed variables of this component
+   */
   watch: {
     key(n, old) {
       // console.log("new key: ", n);
@@ -166,6 +182,9 @@ export default {
       // console.log("new user: ", n);
     }
   },
+  /**
+   * variables of this component and for this component only
+   */
   data() {
     return {
       step: 0,
@@ -175,15 +194,26 @@ export default {
       signature: ""
     };
   },
+  /**
+   * if this component is created
+   * then ...
+   */
   mounted: function() {
     if (store.state.key.public == null || store.state.key.private == null) {
       console.log("create new keys...");
     }
   },
   methods: {
+    /**
+     * Go back to the template / step
+     */
     back() {
       this.step--;
     },
+    /**
+     * Go to the next template / step or
+     * manage the login and register process
+     */
     next() {
       this.step++;
       if (this.step >= 3) {
@@ -200,6 +230,9 @@ export default {
           });
       }
     },
+    /**
+     * Register new name, public key and signed name
+     */
     register() {
       if (!this.loading) {
         this.loading = true;
@@ -226,13 +259,16 @@ export default {
           });
       }
     },
+    /**
+     * Login with name, public key and signed name
+     */
     login() {
       if (!this.loading) {
         this.loading = true;
         this.status = "login";
         axios
           .post(settings.APIURL + "user/login", {
-            name: this.name,
+            command: this.name,
             publicKey: this.key.public,
             sign: this.signature
           })
@@ -244,6 +280,7 @@ export default {
               console.log("login result", res.data);
               if (res.data.success) {
                 console.log("loged in");
+                this.profile();
               } else {
                 console.log("login failled");
                 this.register();
@@ -257,6 +294,43 @@ export default {
           })
           .catch(e => {
             console.log("login error:", e);
+            this.loading = false;
+            this.status = "failled";
+          });
+      }
+    },
+    /**
+     * Get user profile
+     */
+    profile() {
+      if (!this.loading) {
+        this.loading = true;
+        this.status = "get user profile";
+        axios
+          .get(settings.APIURL + "user/" + this.key.public)
+          .then(res => {
+            this.loading = false;
+            if (res.status == 200) {
+              this.loading = false;
+              this.status = "";
+              console.log("profile result", res.data);
+              if (res.data.success) {
+                console.log("user profile received");
+                store.commit('user', res.data.user);
+                this.status= 'received'; 
+              } else {
+                console.log("profile failled");
+                this.register();
+              }
+              this.users = res.data.users;
+            } else {
+              console.log("profile status", res.status);
+              this.loading = false;
+              this.status = "failled";
+            }
+          })
+          .catch(e => {
+            console.log("profile error:", e);
             this.loading = false;
             this.status = "failled";
           });
