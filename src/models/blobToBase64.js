@@ -6,7 +6,6 @@
  * @returns {base64} converted data
  */
 export default function (blob, callback) {
-    console.log("blob to base64");
     var reader = new FileReader();
     reader.onload = function () {
         var dataUrl = reader.result;

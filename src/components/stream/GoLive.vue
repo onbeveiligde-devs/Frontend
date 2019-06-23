@@ -117,10 +117,8 @@ export default {
       }
 
       this.recorder.ondataavailable = function(event) {
-        console.log("new event", event);
-
+        // console.log("new event", event);
         console.log("postIndex", store.state.stream.postIndex);
-
         console.log("start playback type", event.data.type);
 
         var videoBlob = new Blob([event.data], { type: event.data.type });
