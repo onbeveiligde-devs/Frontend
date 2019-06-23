@@ -12,8 +12,8 @@ import { User } from 'src/app/models/User';
 })
 export class ViewSingleStreamComponent implements OnInit {
 
-  private user: User
-  public src: String
+  private src: String
+  private selectedUser: User
   constructor(private router: Router, private userService: UserService, private route: ActivatedRoute) {
 
   }
@@ -22,12 +22,14 @@ export class ViewSingleStreamComponent implements OnInit {
 
   ngOnInit() {
 
-    this.userService.fetchUsers();
-    this.route.params.subscribe((params) => {
-      this.user = this.userService.searchUserById(params['id']);
-      this.src = environment.apiUrl + '/stream/' +  this.user.id + '?' + 'uuid=' +  this.user.uuid
 
+    this.route.params.subscribe(async (params) => {
+      console.log(params);
+      this.selectedUser = await this.userService.getUserById(params['id']);
+      console.log(this.selectedUser);
+      this.src = environment.apiUrl + '/stream/' +  this.selectedUser.id + '?' + 'uuid=' +  this.selectedUser.uuid
     })
+
 
 
   }

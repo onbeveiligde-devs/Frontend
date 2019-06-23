@@ -7,7 +7,7 @@
 <div style="position:fixed; top: 170px;left:0; height: calc(100%-170px); width: 100%; background-color: white;">
   <video style="position: fixed; width: 100vh;
   max-height: 100vh" controls autoplay>
-      <source [src]="src | safe" type="video/webm">
+      <source *ngIf="src" [src]="src | safe" type="video/webm">
       </video>
   Your browser does not support HTML5 video.
 

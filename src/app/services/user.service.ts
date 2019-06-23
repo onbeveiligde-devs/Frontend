@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {User} from '../models/User';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {environment} from 'src/environments/environment';
+import { Injectable } from '@angular/core';
+import { User } from '../models/User';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class UserService {
   private users: User[];
 
   constructor(private http: HttpClient) {
-    this.headers = new HttpHeaders({'Content-Type': 'application/json'});
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.users = [];
   }
 
@@ -43,6 +43,7 @@ export class UserService {
                   }
                 }
               }
+              this.users = users;
               res(users);
             });
 
@@ -52,8 +53,15 @@ export class UserService {
   }
 
 
-  public searchUserById(id: String) {
-    return this.users.find(x => x.id == id);
+  public getUserById(id: String): Promise<User> {
+    return new Promise(async (res, rej) => {
+      try {
+        let users = await this.fetchUsers();
+        res(users.find(x => x.id === id));
+      } catch(err) {
+        rej(err);
+      }
+    });
   }
 
 }
