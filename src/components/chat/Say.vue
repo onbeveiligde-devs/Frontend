@@ -71,7 +71,7 @@ export default {
           this.socket.emit("MSGTOSERV", {
             message: this.message,
             author: store.state.user._id,
-            user: this.subject,
+            subject: this.subject,
             timestamp: Date.now(),
             sign: ab2b64(signature)
           });
