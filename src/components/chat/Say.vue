@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import io from "socket.io-client";
 // @ is an alias to /src
 import settings from "@/settings.json";
@@ -36,17 +35,12 @@ export default {
   },
   computed: {
     loggedin() {
-      console.log('loggedin', store.getters.loggedin);
-      console.log('user', [
-        store.state.key,
-        store.state.user
-      ])
       return store.getters.loggedin;
     }
   },
   watch: {
     loggedin(n, old) {
-      console.log("new channel: ", n);
+      // console.log("new channel: ", n);
     }
   },
   methods: {

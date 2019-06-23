@@ -43,7 +43,7 @@ export default {
   },
   watch: {
     subject(n, old) {
-      console.log("new subject: ", n);
+      // console.log("new subject: ", n);
       this.load();
     }
   },
