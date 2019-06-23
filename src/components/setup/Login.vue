@@ -199,20 +199,24 @@ export default {
   },
   /**
    * if this component is created
-   * then ...
+   * then create or retrieve keys
    */
   mounted: function() {
     let jwkPrivateKey = localStorage.getItem("exportedPrivateKey");
     let jwkPublicKey = localStorage.getItem("exportedPublicKey");
-    console.log('keys found in localStorage', {
+    let jwkUser = localStorage.getItem("exportedUser");
+    console.log("keys found in localStorage", {
       private: jwkPrivateKey,
-      public: jwkPublicKey
+      public: jwkPublicKey,
+      user: jwkUser
     });
+
+    if (jwkUser != null) store.commit("user", jwkUser);
 
     if (jwkPrivateKey != null && jwkPublicKey != null) {
       console.log("retrieve keys from localtorage...");
-      store.commit('privateKey', jwkPrivateKey);
-      store.commit('publicKey', jwkPublicKey);
+      store.commit("privateKey", jwkPrivateKey);
+      store.commit("publicKey", jwkPublicKey);
     } else {
       console.log("create new keys...");
 
@@ -270,7 +274,7 @@ export default {
         })
         .then(() => {
           // save base 64 privatekey
-          console.log('save base 64 privatekey');
+          console.log("save base 64 privatekey");
           privateBase64Key = btoa(JSON.stringify(exportedPrivateKey));
           console.log(privateBase64Key);
           localStorage.setItem("exportedPrivateKey", privateBase64Key);
@@ -278,7 +282,7 @@ export default {
         })
         .then(() => {
           // save base 64 publickey
-          console.log('save base 64 publickey');
+          console.log("save base 64 publickey");
           publicBase64Key = btoa(JSON.stringify(exportedPublicKey));
           console.log(publicBase64Key);
           localStorage.setItem("exportedPublicKey", publicBase64Key);
@@ -333,6 +337,7 @@ export default {
             this.loading = false;
             if (res.status == 200) {
               console.log("register result", res.data);
+              localStorage.setItem("exportedUser", res.data);
               store.commit("user", res.data);
               this.status = "received";
             } else {
@@ -361,9 +366,8 @@ export default {
           })
           .then(res => {
             this.loading = false;
+            this.status = "";
             if (res.status == 200) {
-              this.loading = false;
-              this.status = "";
               console.log("login result", res.data);
               if (res.data.success) {
                 console.log("loged in");
@@ -372,11 +376,9 @@ export default {
                 console.log("login failled");
                 this.register();
               }
-              this.users = res.data.users;
             } else {
               console.log("login status", res.status);
-              this.loading = false;
-              this.status = "failled";
+              this.register();
             }
           })
           .catch(e => {
@@ -392,30 +394,28 @@ export default {
     profile() {
       if (!this.loading) {
         this.loading = true;
-        this.status = "get user profile";
+        this.status = "profile";
         axios
           .post(settings.APIURL + "user", {
             key: this.key.public
           })
           .then(res => {
             this.loading = false;
+            this.status = "";
             if (res.status == 200) {
-              this.loading = false;
-              this.status = "";
               console.log("profile result", res.data);
               if (res.data.success) {
                 console.log("user profile received");
+                localStorage.setItem("exportedUser", res.data.user);
                 store.commit("user", res.data.user);
                 this.status = "received";
               } else {
-                console.log("profile failled");
+                console.log("profile failled", res.data);
                 this.register();
               }
-              this.users = res.data.users;
             } else {
               console.log("profile status", res.status);
-              this.loading = false;
-              this.status = "failled";
+              this.register();
             }
           })
           .catch(e => {

@@ -46,7 +46,7 @@
         @resizing="onResize"
         :parent="false"
       >
-        <Watch :channel="o._id" uuid></Watch>
+        <Watch :channel="o._id"></Watch>
       </vue-draggable-resizable>
     </div>
   </b-container>

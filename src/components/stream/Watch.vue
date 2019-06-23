@@ -25,8 +25,7 @@ import settings from "@/settings.json";
 export default {
   name: "watch",
   props: {
-    channel: String,
-    uuid: String
+    channel: String
   },
   computed: {
     watchVideo() {
