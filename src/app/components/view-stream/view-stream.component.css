@@ -13,20 +13,16 @@
 }
 
   .example-box {
-    padding: 20px 10px;
-    height: 100px;
-    width:200px;
     border-right: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-end;
     box-sizing: border-box;
     cursor: move;
     background: white;
     font-size: 14px;
-    flex-grow: 1;
+    flex-grow: initial;
     flex-basis: 0;
 
   }
@@ -58,19 +54,9 @@
     margin-top: -60px;
   }
 
-  .div.example-box.cdk-drag.ng-star-inserted{
-    width: 200px;
-    height:  100px;
-    touch-action: none;
-    -webkit-user-drag: none;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-  }
+ 
   .orange-bootstrap-button {
     color: orangered;
     border-color: orangered;
   }
+
