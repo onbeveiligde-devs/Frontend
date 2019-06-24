@@ -14,7 +14,7 @@
   <div class="chat" style="position: fixed; width: 30%; float: right; height:100%; background-color: white; right: 0; padding: 10px">
     <div class="type-message" style="bottom:0; position: fixed; height: 50px; width: calc(30% - 20px);">
       <div class="input-group">
-        <input type="text" class="form-control" (keyup.enter)="sendMessage(message)" [value]="message" (input)="message = $event.target.value"  >
+        <input type="text" class="form-control" (keyup.enter)="sendMessage(message)" [value]="message" (input)="message = $event.target.value">
         <button class="input-group-text" (click)="sendMessage(message)" >Send message</button>
       </div>
     </div>

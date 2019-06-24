@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/models/User';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import {CryptoService} from '../../services/crypto.service';
 
 @Component({
   selector: 'app-record-stream',
@@ -10,20 +11,18 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class RecordStreamComponent implements OnInit {
 
-  public user : User
-  public uuid : string
-  public src : string;
+  public user : User;
+  public uuid : string;
+  public privateKey: string;
 
-  constructor(private authService: AuthenticationService) { 
+  constructor(private cryptoService: CryptoService, private authService: AuthenticationService) {
 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.user = this.authService.getUser();
-    console.log(this.user);
+    this.privateKey = await this.cryptoService.wrapKey(this.authService.getPrivateKey());
 
-    this.src = environment.apiUrl+'/golive/'+ this.user.id;
-    
   }
 
 }
