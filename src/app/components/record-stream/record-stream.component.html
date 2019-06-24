@@ -71,6 +71,7 @@
         formData.append("blob_index", postIndex);
         formData.append("blob_sec", postSec);
 
+        console.log('Signing ' + base64 + "video_" + postIndex + ".webm" + postIndex + postSec);
         let sign = await window.transCrypto.sign(base64 + "video_" + postIndex + ".webm" + postIndex + postSec, '{{privateKey}}');
         console.log('sign = ' + sign);
 
