@@ -7,6 +7,7 @@ import {UserService} from './user.service';
 import {AuthenticationService} from './authentication.service';
 import {CryptoService} from './crypto.service';
 import {Observable} from 'rxjs';
+import {User} from '../models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -53,16 +54,18 @@ export class ChatService {
     this.socket.emit('MSGTOSERV', body);
   }
 
-  public getMessages(subject: string) {
+  public getMessages(user: User): Promise<Chat[]> {
     let chats = [];
     return new Promise<Chat[]>((res, rej) => {
-      this.http.get<any>(environment.apiUrl + `/chat/${subject}`)
+      this.http.get<any>(environment.apiUrl + '/chat/' + user.id)
         .toPromise()
         .then(
-          result => {
+          async result => {
             for(let i = 0; i < result.messages.length; i++) {
               let message = result.messages[i];
-              chats.push(message);
+              let author = this.userService.getCachedUsers().find(x => x.id === message.author);
+              let chat = new Chat(message._id, user, author, message.message, message.timestamp, message.sign);
+              chats.push(chat);
             }
             console.log(chats);
             res(chats);

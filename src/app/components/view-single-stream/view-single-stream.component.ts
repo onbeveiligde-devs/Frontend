@@ -20,25 +20,34 @@ export class ViewSingleStreamComponent implements OnInit {
   message: string = '';
 
   constructor(private router: Router, private userService: UserService, private chatService: ChatService, private cryptoService: CryptoService, private route: ActivatedRoute) {
+
   }
 
   async ngOnInit() {
     console.log(this.route.snapshot.paramMap.get('id'));
     this.user = await this.userService.getUserById(this.route.snapshot.paramMap.get('id'));
     console.log('User = ' + this.user.name);
-    //const timer = interval(1000);
-    //this.subscription = timer.subscribe(x => this.chatService.getMessages(this.user.id).then(chats => this.chats = chats));
+    this.chats = await this.chatService.getMessages(this.user);
+    this.scrollToLastChat();
     this.chatService.dataObservable.subscribe(async message => {
       if(message.event === 'MSGTOCLIENT') {
-
+        console.log(message);
         let verified = await this.cryptoService.verify(message.data.user + '-' + message.data.message + '-' + message.data.timestamp, message.data.sign, message.data.authorPublicKey);
         console.log('verified = ' + verified);
-
-
+        let author = this.userService.getCachedUsers().find(x => x.id === message.data.author);
+        let chat = new Chat(message.data.id, this.user, author, message.data.message, message.data.timestamp, message.data.sign);
+        this.chats.push(chat);
+        this.scrollToLastChat();
       }
     });
   }
 
+  public scrollToLastChat() {
+    setTimeout(() => {
+      let element = document.getElementById("messages");
+      element.scrollTop = element.scrollHeight;
+    }, 100);
+  }
 
   viewMultiple() {
     this.router.navigate(['/follow']);

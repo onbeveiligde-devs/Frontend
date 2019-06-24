@@ -14,15 +14,15 @@
   <div class="chat" style="position: fixed; width: 30%; float: right; height:100%; background-color: white; right: 0">
     <div class="type-message" style="bottom:0; position: fixed; height: 50px; width: 30%">
       <div class="input-group">
-        <input type="text" class="form-control" [value]="message" (input)="message = $event.target.value"  >
+        <input type="text" class="form-control" (keyup.enter)="sendMessage(message)" [value]="message" (input)="message = $event.target.value"  >
         <button class="input-group-text" (click)="sendMessage(message)" >Send message</button>
       </div>
     </div>
-    <div  class="messages" style="position:fixed; height: calc(100% - 106px); width:100%; top:56px">
+    <div id="messages" class="messages" style="position:fixed; max-height: calc(100% - 130px); width:100%; bottom:63px; overflow-y: scroll">
       <div *ngFor="let chat of chats" class="message uneven"
         style="border-top-width: 1px; border-color: #999; border-top-style: solid; background-color: #ddd">
-        <span class="sender" style="font-weight: bold">{{chat.author}}</span>:
-        <span class="content">{{chat.message}}</span>
+        <span class="sender" style="font-weight: bold">{{chat.author.name}}</span>:
+        <span class="content">{{chat.message | filterHtml}}</span>
       </div>
     </div>
   </div>
