@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { UserService } from 'src/app/services/user.service';
+import {ChatService} from './../../services/chat.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from 'src/app/services/user.service';
+import {interval, Subscription} from 'rxjs';
+import {Chat} from 'src/app/models/Chat';
+import {User} from '../../models/User';
+import {CryptoService} from '../../services/crypto.service';
 
 @Component({
   selector: 'app-view-single-stream',
@@ -10,28 +13,53 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./view-single-stream.component.css']
 })
 export class ViewSingleStreamComponent implements OnInit {
-  
 
-  constructor(private router:Router, private userService : UserService) {
+  user: User;
+  subscription: Subscription;
+  chats: Chat[];
+  message: string = '';
 
-   }
-
-
-
-  ngOnInit() {
-    // let uuid = this.userService.getUuid().then(res => console.log(res));;
-
-
-
+  constructor(private router: Router, private userService: UserService, private chatService: ChatService, private cryptoService: CryptoService, private route: ActivatedRoute) {
 
   }
 
-
-  viewMultiple(){
-    this.router.navigate(['/follow'])
+  async ngOnInit() {
+    console.log(this.route.snapshot.paramMap.get('id'));
+    this.user = await this.userService.getUserById(this.route.snapshot.paramMap.get('id'));
+    console.log('User = ' + this.user.name);
+    this.chats = await this.chatService.getMessages(this.user);
+    this.scrollToLastChat();
+    this.chatService.dataObservable.subscribe(async message => {
+      if(message.event === 'MSGTOCLIENT') {
+        console.log(message);
+        let verified = await this.cryptoService.verify(message.data.user + '-' + message.data.message + '-' + message.data.timestamp, message.data.sign, message.data.authorPublicKey);
+        console.log('verified = ' + verified);
+        let author = this.userService.getCachedUsers().find(x => x.id === message.data.author);
+        let chat = new Chat(message.data.id, this.user, author, message.data.message, message.data.timestamp, message.data.sign);
+        this.chats.push(chat);
+        this.scrollToLastChat();
+      }
+    });
   }
-  recordStream(){
-    this.router.navigate(['/record'])
+
+  public scrollToLastChat() {
+    setTimeout(() => {
+      let element = document.getElementById("messages");
+      element.scrollTop = element.scrollHeight;
+    }, 100);
+  }
+
+  viewMultiple() {
+    this.router.navigate(['/follow']);
+  }
+
+  recordStream() {
+    this.router.navigate(['/record']);
+  }
+
+  sendMessage(message: string) {
+    console.log(message);
+    this.chatService.sendMessage(this.user.id, message);
   }
 
 }
