@@ -1,11 +1,12 @@
-import { Chat } from './../models/Chat';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {Chat} from './../models/Chat';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import * as io from 'socket.io-client';
-import { environment } from 'src/environments/environment';
+import {environment} from 'src/environments/environment';
 import {UserService} from './user.service';
 import {AuthenticationService} from './authentication.service';
 import {CryptoService} from './crypto.service';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,48 +14,62 @@ import {CryptoService} from './crypto.service';
 export class ChatService {
 
   private socket;
+  public dataObservable: Observable<any>; // { event, data }
 
   constructor(private http: HttpClient, private userService: UserService, private authService: AuthenticationService, private cryptoService: CryptoService) {
-    this.chats = [];
-    this.socket = io(this.url);
-    console.log('in chat service');
+    this.socket = io(environment.apiUrl);
+    this.dataObservable = new Observable<any>(observer => {
+      this.socket.on('MSGTOCLIENT', data => {
+        observer.next({
+          event: 'MSGTOCLIENT',
+          data: data
+        })
+      })
+    });
+    this.socket.on('ERRTOCLIENT', (data) => {
+      console.log('Incoming error from server below');
+      console.log(data);
+    });
+    this.socket.on('MSGTOCLIENT', chat => {
+
+    });
     console.log(this.socket);
   }
 
-  public sendMessage(userId: string, message: string) {
-
-
+  public async sendMessage(userId: string, message: string) {
+    let timestamp: number = Date.now();
+    let sign = await this.cryptoService.sign(userId + '-' + message + '-' + timestamp, this.authService.getPrivateKey());
+    console.log('Signed ' + userId + '-' + message + '-' + timestamp + ': ' + sign);
 
     const body = {
+      user: userId,
       message: message,
       author: this.authService.getUser().id,
       subject: userId,
-      timestamp: Date.now(),
+      timestamp: timestamp,
       sign: sign
     };
 
-    this.socket.emit('MSGTOSERV', body)
-
+    this.socket.emit('MSGTOSERV', body);
   }
 
-  public getMessages(subject: String) {
-    this.chats = []
+  public getMessages(subject: string) {
+    let chats = [];
     return new Promise<Chat[]>((res, rej) => {
       this.http.get<any>(environment.apiUrl + `/chat/${subject}`)
         .toPromise()
         .then(
           result => {
-            for ( let i = 0; i < result.messages.length; i++) {
-                let message = result.messages[i];
-                this.chats.push(message);
+            for(let i = 0; i < result.messages.length; i++) {
+              let message = result.messages[i];
+              chats.push(message);
             }
-            console.log(this.chats)
-            res(this.chats)
+            console.log(chats);
+            res(chats);
           }
-        )
-    })
+        );
+    });
   }
-
 
 
 }

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/models/User';
+import {ChatService} from './../../services/chat.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from 'src/app/services/user.service';
+import {interval, Subscription} from 'rxjs';
+import {Chat} from 'src/app/models/Chat';
+import {User} from '../../models/User';
+import {CryptoService} from '../../services/crypto.service';
 
 @Component({
   selector: 'app-view-single-stream',
@@ -12,34 +14,43 @@ import { User } from 'src/app/models/User';
 })
 export class ViewSingleStreamComponent implements OnInit {
 
-  private src: String
-  private selectedUser: User
-  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute) {
+  user: User;
+  subscription: Subscription;
+  chats: Chat[];
+  message: string = '';
 
+  constructor(private router: Router, private userService: UserService, private chatService: ChatService, private cryptoService: CryptoService, private route: ActivatedRoute) {
   }
 
+  async ngOnInit() {
+    console.log(this.route.snapshot.paramMap.get('id'));
+    this.user = await this.userService.getUserById(this.route.snapshot.paramMap.get('id'));
+    console.log('User = ' + this.user.name);
+    //const timer = interval(1000);
+    //this.subscription = timer.subscribe(x => this.chatService.getMessages(this.user.id).then(chats => this.chats = chats));
+    this.chatService.dataObservable.subscribe(async message => {
+      if(message.event === 'MSGTOCLIENT') {
+
+        let verified = await this.cryptoService.verify(message.data.user + '-' + message.data.message + '-' + message.data.timestamp, message.data.sign, message.data.authorPublicKey);
+        console.log('verified = ' + verified);
 
 
-  ngOnInit() {
-
-
-    this.route.params.subscribe(async (params) => {
-      console.log(params);
-      this.selectedUser = await this.userService.getUserById(params['id']);
-      console.log(this.selectedUser);
-      this.src = environment.apiUrl + '/stream/' +  this.selectedUser.id + '?' + 'uuid=' +  this.selectedUser.uuid
-    })
-
-
-
+      }
+    });
   }
 
 
   viewMultiple() {
-    this.router.navigate(['/follow'])
+    this.router.navigate(['/follow']);
   }
+
   recordStream() {
-    this.router.navigate(['/record'])
+    this.router.navigate(['/record']);
+  }
+
+  sendMessage(message: string) {
+    console.log(message);
+    this.chatService.sendMessage(this.user.id, message);
   }
 
 }
