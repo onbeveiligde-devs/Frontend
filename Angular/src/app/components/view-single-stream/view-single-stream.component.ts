@@ -6,6 +6,7 @@ import {interval, Subscription} from 'rxjs';
 import {Chat} from 'src/app/models/Chat';
 import {User} from '../../models/User';
 import {CryptoService} from '../../services/crypto.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-view-single-stream',
@@ -18,6 +19,7 @@ export class ViewSingleStreamComponent implements OnInit {
   subscription: Subscription;
   chats: Chat[];
   message: string = '';
+  src: string = '';
 
   constructor(private router: Router, private userService: UserService, private chatService: ChatService, private cryptoService: CryptoService, private route: ActivatedRoute) {
 
@@ -27,6 +29,9 @@ export class ViewSingleStreamComponent implements OnInit {
     console.log(this.route.snapshot.paramMap.get('id'));
     this.user = await this.userService.getUserById(this.route.snapshot.paramMap.get('id'));
     console.log('User = ' + this.user.name);
+    
+    this.src = environment.apiUrl + '/stream/' + this.user.id + '?uuid=' + this.user.uuid;
+
     this.chats = await this.chatService.getMessages(this.user);
     this.scrollToLastChat();
     this.chatService.dataObservable.subscribe(async message => {
@@ -34,10 +39,14 @@ export class ViewSingleStreamComponent implements OnInit {
         console.log(message);
         let verified = await this.cryptoService.verify(message.data.user + '-' + message.data.message + '-' + message.data.timestamp, message.data.sign, message.data.authorPublicKey);
         console.log('verified = ' + verified);
-        let author = this.userService.getCachedUsers().find(x => x.id === message.data.author);
-        let chat = new Chat(message.data.id, this.user, author, message.data.message, message.data.timestamp, message.data.sign);
-        this.chats.push(chat);
-        this.scrollToLastChat();
+        if(verified) {
+          let author = this.userService.getCachedUsers().find(x => x.id === message.data.author);
+          let chat = new Chat(message.data.id, this.user, author, message.data.message, message.data.timestamp, message.data.sign);
+          this.chats.push(chat);
+          this.scrollToLastChat();
+        } else {
+          console.log('Chat message could not be verified, not showing...');
+        }
       }
     });
   }
