@@ -260,8 +260,8 @@ export default {
             this.loading = false;
             if (res.status == 200) {
               console.log("register result", res.data);
-              localStorage.setItem("exportedUser", JSON.stringify(res.data));
-              store.commit("user", res.data);
+              localStorage.setItem("exportedUser", JSON.stringify(res.data.user));
+              store.commit("user", res.data.user);
               this.status = "received";
             } else {
               console.log("register status", res.status);
