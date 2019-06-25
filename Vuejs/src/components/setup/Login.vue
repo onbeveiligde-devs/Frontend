@@ -294,7 +294,12 @@ export default {
               console.log("login result", res.data);
               if (res.data.success) {
                 console.log("loged in");
-                this.profile();
+                localStorage.setItem(
+                  "exportedUser",
+                  JSON.stringify(res.data.user)
+                );
+                store.commit("user", res.data.user);
+                this.status = "loged in";
               } else {
                 console.log("login failled");
                 this.register();
@@ -306,46 +311,6 @@ export default {
           })
           .catch(e => {
             console.log("login error:", e);
-            this.loading = false;
-            this.status = "failled";
-          });
-      }
-    },
-    /**
-     * Get user profile
-     */
-    profile() {
-      if (!this.loading) {
-        this.loading = true;
-        this.status = "profile";
-        axios
-          .post(settings.APIURL + "user", {
-            publicKey: this.key.public
-          })
-          .then(res => {
-            this.loading = false;
-            this.status = "";
-            if (res.status == 200) {
-              console.log("profile result", res.data);
-              if (res.data.success) {
-                console.log("user profile received");
-                localStorage.setItem(
-                  "exportedUser",
-                  JSON.stringify(res.data.user)
-                );
-                store.commit("user", res.data.user);
-                this.status = "received";
-              } else {
-                console.log("profile failled", res.data);
-                this.register();
-              }
-            } else {
-              console.log("profile status", res.status);
-              this.register();
-            }
-          })
-          .catch(e => {
-            console.log("profile error:", e);
             this.loading = false;
             this.status = "failled";
           });
