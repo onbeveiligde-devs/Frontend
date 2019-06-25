@@ -34,10 +34,14 @@ export class ViewSingleStreamComponent implements OnInit {
         console.log(message);
         let verified = await this.cryptoService.verify(message.data.user + '-' + message.data.message + '-' + message.data.timestamp, message.data.sign, message.data.authorPublicKey);
         console.log('verified = ' + verified);
-        let author = this.userService.getCachedUsers().find(x => x.id === message.data.author);
-        let chat = new Chat(message.data.id, this.user, author, message.data.message, message.data.timestamp, message.data.sign);
-        this.chats.push(chat);
-        this.scrollToLastChat();
+        if(verified) {
+          let author = this.userService.getCachedUsers().find(x => x.id === message.data.author);
+          let chat = new Chat(message.data.id, this.user, author, message.data.message, message.data.timestamp, message.data.sign);
+          this.chats.push(chat);
+          this.scrollToLastChat();
+        } else {
+          console.log('Chat message could not be verified, not showing...');
+        }
       }
     });
   }

@@ -10,11 +10,11 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class RecordStreamComponent implements OnInit {
 
-  public user : User
-  public uuid : string
+  public user : User;
+  public uuid : string;
   public src : string;
 
-  constructor(private authService: AuthenticationService) { 
+  constructor(private authService: AuthenticationService) {
 
   }
 
@@ -22,8 +22,8 @@ export class RecordStreamComponent implements OnInit {
     this.user = this.authService.getUser();
     console.log(this.user);
 
-    this.src = environment.apiUrl+'/golive/'+ this.user.id;
-    
+    this.src = '/assets/golive.html?id=' + this.user.id;
+
   }
 
 }
