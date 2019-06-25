@@ -10,8 +10,8 @@
 <h2>Streaming with User id: <span id="userid">loading...</span></h2>
 <button id="start_button" onclick="startVideo()">Start Video</button>
 <button id="start_record_button" onclick="startRecording();">Start Live</button>
-<button id="stop_record_button" onclick="stopRecording()">Stop Live</button>
-<button id="stop_button" onclick="stopVideo()">Stop Video</button>
+<!--<button id="stop_record_button" onclick="stopRecording()">Stop Live</button>
+<button id="stop_button" onclick="stopVideo()">Stop Video</button>-->
 
 <!--
 <button id="play_button" onclick="playRecorded()">Play</button>
@@ -32,6 +32,8 @@
   window.RTCPeerConnection = window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
   window.RTCIceCandidate = window.mozRTCIceCandidate || window.RTCIceCandidate;
 
+  const apiBase = 'http://localhost:3000';
+
   const urlParams = new URLSearchParams(window.location.search);
   const channelName = urlParams.get('id');
   document.getElementById('userid').innerText = channelName;
@@ -40,27 +42,26 @@
   console.log('Wrapped priv key = ' + wrappedPrivateKey);
   if(wrappedPrivateKey == null)
     alert('Invalid local private key');
+  let privateKey;
   window.transCrypto.unwrapKey(wrappedPrivateKey, true)
-    .then(privateKey => {
-      console.log('unwrapped: ' + privateKey);
+    .then(pk => {
+      privateKey = pk;
+    });
+  console.log('unwrapped: ' + privateKey);
 
-      var localVideo = document.getElementById('local_video');
-      //var playbackVideo =  document.getElementById('playback_video');
-      //var ancher = document.getElementById('downloadlink');
-      var watchDiv = document.getElementById('watch_link');
-      var localStream = null;
-      var recorder = null;
-      var blobUrl = null;
-      var blobUrls = [];
-      var recordIndex = 0;
-      var postIndex = 0;
-      var postSec = 0;
-      var intervalSec = 5;
-      var intervalMiliSec = intervalSec * 1000;
-
-    }).catch(err => {
-    console.log(err.message);
-  });
+  var localVideo = document.getElementById('local_video');
+  //var playbackVideo =  document.getElementById('playback_video');
+  //var ancher = document.getElementById('downloadlink');
+  var watchDiv = document.getElementById('watch_link');
+  var localStream = null;
+  var recorder = null;
+  var blobUrl = null;
+  var blobUrls = [];
+  var recordIndex = 0;
+  var postIndex = 0;
+  var postSec = 0;
+  var intervalSec = 5;
+  var intervalMiliSec = intervalSec * 1000;
 
   function startRecording() {
     if(!localStream) {
@@ -76,6 +77,8 @@
 
     recorder.ondataavailable = function(evt) {
       var videoBlob = new Blob([evt.data], {type: evt.data.type});
+
+      console.log('data avaiable to send to server');
 
       blobToBase64(videoBlob, async function(base64) {
 
@@ -100,7 +103,7 @@
           }
         }
 
-        xhr.open("POST", "/upload/" + channelName, true);
+        xhr.open("POST", apiBase + "/upload/" + channelName, true);
         xhr.send(formData);
 
         if(postIndex == 1) {
