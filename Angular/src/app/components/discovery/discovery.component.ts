@@ -12,18 +12,24 @@ import {UserService} from '../../services/user.service';
 })
 export class DiscoveryComponent implements OnInit {
 
-
+  private _intervalHandler: any;
 
   users : User[];
   onlineUsers : User[];
 
   constructor(private router: Router, private userService: UserService) { }
 
-  async ngOnInit() {
-    //TODO: Implement service to retrieve all users
+  ngOnInit() {
+    this.users = this.userService.getCachedUsers();
+    this.onlineUsers = this.users.filter(x => x.online);
+    this._intervalHandler = setInterval( () => {
+      this.users = this.userService.getCachedUsers();
+      this.onlineUsers = this.users.filter(x => x.online);
+    }, 1000);
+  }
 
-    this.users = await this.userService.fetchUsers();
-    this.onlineUsers = this.users.filter(x=> x.online)
+  ngOnDestroy() {
+    clearInterval(this._intervalHandler);
   }
 
   recordStream(){

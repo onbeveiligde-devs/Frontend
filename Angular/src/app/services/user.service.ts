@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
-import {User} from '../models/User';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {environment} from 'src/environments/environment';
+import { Injectable } from '@angular/core';
+import { User } from '../models/User';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UserService {
   private users: User[];
 
   constructor(private http: HttpClient) {
-    this.headers = new HttpHeaders({'Content-Type': 'application/json'});
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.users = [];
   }
 
@@ -20,9 +21,11 @@ export class UserService {
     return new User(obj._id, obj.name, false, obj.balance, obj.publicKey, '');
   }
 
+  public getCachedUsers(): User[] {
+    return this.users;
+  }
 
   public fetchUsers(): Promise<User[]> {
-
     return new Promise<User[]>((res, rej) => {
       this.http.get<any>(environment.apiUrl + '/user')
         .toPromise()
@@ -39,10 +42,12 @@ export class UserService {
                   let user = users[j];
                   if (channelStatus.isOnAir && user.id === channelStatus.name) {
                     user.online = true;
+                    user.uuid = channelStatus.uuid;
                     break;
                   }
                 }
               }
+              this.users = users;
               res(users);
             });
 
@@ -51,9 +56,28 @@ export class UserService {
     });
   }
 
+  public getUserByPublicKey(wrappedPublicKey: String): Promise<User> {
+    return new Promise(async (res, rej) => {
+      try {
+        if(this.users.length < 1)
+          this.users = await this.fetchUsers();
+        res(this.users.find(x => x.publicKey === wrappedPublicKey));
+      } catch(err) {
+        rej(err);
+      }
+    });
+  }
 
-  public searchUserById(id: String) {
-    return this.users.find(x => x.id == id);
+  public getUserById(id: String): Promise<User> {
+    return new Promise(async (res, rej) => {
+      try {
+        if(this.users.length < 1)
+          this.users = await this.fetchUsers();
+        res(this.users.find(x => x.id === id));
+      } catch(err) {
+        rej(err);
+      }
+    });
   }
 
 }

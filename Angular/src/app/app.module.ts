@@ -23,6 +23,7 @@ import { CommonModule } from '@angular/common';
 import { SafePipe } from './pipes/safe.pipe';
 import {LogoutComponent} from './components/authentication/logout/logout.component';
 import { CheckKeysComponent } from './components/authentication/check-keys/check-keys.component';
+import { FilterHtmlPipe } from './pipes/filter-html.pipe';
 
 
 
@@ -40,7 +41,8 @@ import { CheckKeysComponent } from './components/authentication/check-keys/check
     RegisterComponent,
     SafePipe,
     LogoutComponent,
-    CheckKeysComponent
+    CheckKeysComponent,
+    FilterHtmlPipe
   ],
   imports: [
     BrowserModule,
